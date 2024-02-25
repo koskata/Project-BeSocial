@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeSocial.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class BeSocialDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public BeSocialDbContext(DbContextOptions<BeSocialDbContext> options)
             : base(options)
         {
         }
