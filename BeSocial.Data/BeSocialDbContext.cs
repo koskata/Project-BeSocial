@@ -23,6 +23,9 @@ namespace BeSocial.Data
             builder.Entity<PostLiker>()
                 .HasKey(pl => new { pl.LikerId, pl.PostId });
 
+            builder.Entity<GroupParticipant>()
+                .HasKey(gp => new { gp.GroupId, gp.ParticipantId });
+
             base.OnModelCreating(builder);
         }
     }
