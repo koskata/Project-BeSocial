@@ -43,6 +43,10 @@ namespace BeSocial.Data.Models
         [ForeignKey(nameof(CategoryId))]
         public PostCategory PostCategory { get; set; } = null!;
 
+        public int? GroupId { get; set; }
+        [ForeignKey(nameof(GroupId))]
+        public Group? Group { get; set; }
+
 
         public virtual ICollection<Comment> Comments { get; set; }
 
