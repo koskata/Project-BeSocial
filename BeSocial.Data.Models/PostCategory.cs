@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using static BeSocial.Common.EntityValidationConstants.PostCategory;
 
 namespace BeSocial.Data.Models
 {
@@ -16,9 +13,12 @@ namespace BeSocial.Data.Models
         }
 
         [Key]
+        [Comment("Category identifier of post")]
         public int Id { get; set; }
 
         [Required]
+        [Comment("Category name of post")]
+        [StringLength(NameMaxLength)]
         public string Name { get; set; } = string.Empty;
 
         public virtual ICollection<Post> Posts { get; set; }

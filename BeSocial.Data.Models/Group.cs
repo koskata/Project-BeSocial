@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using static BeSocial.Common.EntityValidationConstants.Group;
 
 namespace BeSocial.Data.Models
 {
@@ -17,18 +14,23 @@ namespace BeSocial.Data.Models
         }
 
         [Key]
+        [Comment("Group identifier")]
         public int Id { get; set; }
 
         [Required]
+        [Comment("Group name")]
+        [StringLength(NameMaxLength)]
         public string Name { get; set; } = string.Empty;
 
         [Required]
+        [Comment("Creator of group identifier")]
         public string OrganiserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(OrganiserId))]
-        public User Organiser { get; set; } = null!;
+        public ApplicationUser Organiser { get; set; } = null!;
 
         [Required]
+        [Comment("Category identifier")]
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
