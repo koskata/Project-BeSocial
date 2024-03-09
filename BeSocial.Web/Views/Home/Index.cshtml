@@ -2,7 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        overflow-x: hidden;
+    }
+</style>
+<div class="row">
+    <div class="col-3 bg-black"></div>
+    <div class="text-center col-6">
+        <h1 class="display-4">Post your experiences, activities and more in the newest and trending social app. Make new friends. BeSocial!</h1>
+        <hr class="m-5">
+        <h3>Еxplore the world of the freedom!</h3>
+        <button type="button" class="btn btn-success btn-lg">All Posts</button>
+        <hr class="m-5">
+        <div class="container">
+            <h6>Don't miss the trends around the world. Create an account now!</h6>
+            <button class="btn"><a class="nav-link text-white btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Log In</a></button>
+            <button class="btn"><a class="nav-link text-white btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Register</a></button>
+        </div>
+    </div>
+    <div class="col-3 bg-black"></div>
 </div>
+
+
