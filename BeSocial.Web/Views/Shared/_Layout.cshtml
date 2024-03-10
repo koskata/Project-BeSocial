@@ -1,6 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
+
 <head>
+    <style>
+        /* Add the updated CSS styles here */
+        .backg {
+            background-color: dimgray;
+        }
+
+    </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BeSocial</title>
@@ -8,7 +17,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BeSocial.Web.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="d-flex flex-column">
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark box-shadow">
             <div class="container-fluid">
@@ -29,11 +38,15 @@
         </nav>
     </header>
 
-        <main role="main" class="pb-3">
+    <div class="container">
+        <main role="main">
             @RenderBody()
         </main>
+    </div>
 
-    <footer class="border-top footer text-muted bg-dark">
+
+
+    <footer class="border-top footer bg-dark">
         <div class="container text-white">
             &copy; @DateTime.Now.Year - BeSocial
         </div>

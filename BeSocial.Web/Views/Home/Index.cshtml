@@ -3,25 +3,70 @@
 }
 
 <style>
-    body {
-        overflow-x: hidden;
+    img{
+        filter: blur(1px);
+        -webkit-filter: blur(1px);
     }
 </style>
-<div class="row">
-    <div class="col-3 bg-black"></div>
-    <div class="text-center col-6">
-        <h1 class="display-4">Post your experiences, activities and more in the newest and trending social app. Make new friends. BeSocial!</h1>
-        <hr class="m-5">
-        <h3>Еxplore the world of the freedom!</h3>
-        <button type="button" class="btn btn-success btn-lg">All Posts</button>
-        <hr class="m-5">
-        <div class="container">
-            <h6>Don't miss the trends around the world. Create an account now!</h6>
-            <button class="btn"><a class="nav-link text-white btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Log In</a></button>
-            <button class="btn"><a class="nav-link text-white btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Register</a></button>
-        </div>
-    </div>
-    <div class="col-3 bg-black"></div>
-</div>
 
+<div class="text-center">
+    <h1 class="display-4">Post your experiences, activities and more in the newest and trending social app. Make new friends. BeSocial!</h1>
+    <hr class="my-4">
+        <div>
+            <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+            <div class="carousel-inner rounded-2">
+                <div class="carousel-item active">
+                    <img class="bd-placeholder-img" width="100%" height="100%" src="https://images.unsplash.com/photo-1501436513145-30f24e19fcc8?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></img>
+                        <div class="container">
+                            <div class="carousel-caption text-start">
+                            <h1>Еxplore the world of the freedom!</h1>
+                                <p class="opacity-75">View all posts around you!</p>
+                            <p><button class="btn btn-lg btn-info"><a class="nav-link text-white" asp-action="" asp-controller="Post">All Posts</a></button></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h1>Another example headline.</h1>
+                                <p>Some representative placeholder content for the second slide of the carousel.</p>
+                                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
+                        <div class="container">
+                            <div class="carousel-caption text-end">
+                                <h1>One more for good measure.</h1>
+                                <p>Some representative placeholder content for the third slide of this carousel.</p>
+                                <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+   
+    <div class="container">
+        <h6>Don't miss the trends around the world. Create an account now!</h6>
+        <button class="btn"><a class="nav-link text-white btn btn-primary" asp-area="Identity" asp-page="/Account/Register">Register</a></button>
+    </div>
+
+    
+</div>
 
