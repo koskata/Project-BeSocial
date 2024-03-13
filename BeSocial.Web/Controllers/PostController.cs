@@ -6,7 +6,7 @@ namespace BeSocial.Web.Controllers
     {
         public IActionResult All()
         {
-            //if (User?.Identity?.IsAuthenticated == false || User?.Identity == null)
+            //if (User?.Identity?.IsAuthenticated == false && User?.Identity == null)
             //{
             //    return RedirectToAction();
             //}

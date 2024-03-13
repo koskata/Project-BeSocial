@@ -30,6 +30,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Post" asp-action="All">All Posts</a>
+                        </li>
                     </ul>
                     
                     <partial name="_LoginPartial" />
@@ -39,11 +42,23 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
+    @if (ViewData["Title"] == "Home Page")
+    {
+        <div class="container">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    else
+    {
+        <div class="container w-50">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    
 
 
 
