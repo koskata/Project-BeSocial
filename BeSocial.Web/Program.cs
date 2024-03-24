@@ -1,4 +1,6 @@
 using BeSocial.Data;
+using BeSocial.Services.Interfaces;
+using BeSocial.Services;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,8 @@ namespace BeSocial.Web
                 options.Password.RequireDigit = false;
             })
                 .AddEntityFrameworkStores<BeSocialDbContext>();
+
+            builder.Services.AddScoped<IPostService, PostService>();
 
             builder.Services.AddControllersWithViews();
 

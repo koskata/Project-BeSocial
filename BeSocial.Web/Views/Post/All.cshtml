@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<PostAllViewModel>
+
+@{
     ViewData["Title"] = "All Posts";
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,23 +17,23 @@
     <title></title>
 </head>
 <body>
-    @* @foreach (var post in @model)
+    @foreach (var post in Model)
     {
-
-    } *@
-    <div class="card text-center my-3 myCard">
-        <div class="card-header">
-            Category
+        <div class="card text-center my-3 myCard">
+            <div class="card-header">
+                @post.Category
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@post.Title</h5>
+                <p class="card-text">@post.Description</p>
+                <a href="#" class="btn btn-primary">Comments Section</a>
+            </div>
+            <div class="card-footer text-body-secondary">
+                2 days ago
+            </div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Title</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Comments Section</a>
-        </div>
-        <div class="card-footer text-body-secondary">
-            2 days ago
-        </div>
-    </div>
+    }
+    
 
 </body>
 </html>
