@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BeSocial.Data\BeSocial.Data.csproj" />
+    <ProjectReference Include="..\BeSocial.Web.Infrastructure\BeSocial.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\BeSocial.Web.ViewModels\BeSocial.Web.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>
