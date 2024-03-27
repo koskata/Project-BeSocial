@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<PostAllViewModel>
+@* @model AllPostsQueryModel *@
+
 
 @{
     ViewData["Title"] = "All Posts";
@@ -13,28 +15,100 @@
             background-repeat: no-repeat;
             background-size: 100% 100%;
         }
+
+        .likes {
+            background-color: #519FF7;
+            border-radius: 0.3em;
+            padding-top: 0.3em;
+            padding-bottom: 0.3em;
+            padding-right: 0.5em;
+            padding-left: 0.5em;
+        }
+
+        .date {
+            background-color: #D0D0D0;
+            border-radius: 0.3em;
+            padding-top: 0.3em;
+            padding-bottom: 0.3em;
+            padding-right: 1em;
+            padding-left: 1em;
+        }
     </style>
     <title></title>
 </head>
 <body>
-    @foreach (var post in Model)
-    {
-        <div class="card text-center my-3 myCard">
-            <div class="card-header">
-                @post.Category
+
+    @* <form method="get">
+        <div class="row">
+            <div class="form-group col-md-3 d-flex justify-content-between">
+                <div class="form-group">
+                    <label asp-for="Category"></label>
+                    <select asp-for="Category" class="form-control">
+                        <option value="">All</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category">@category</option>
+                        }
+                    </select>
+                </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">@post.Title</h5>
-                <p class="card-text">@post.Description</p>
-                <a href="#" class="btn btn-primary">Comments Section</a>
+
+            <div class="form-group col-md-3">
+                <label asp-for="SearchTerm"></label>
+                <input asp-for="SearchTerm" class="form-control" placeholder="...">
             </div>
-            <div class="card-footer text-body-secondary">
-                2 days ago
+
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <label asp-for="Sorting"></label>
+                    <select asp-for="Sorting" class="form-control">
+                        <option value="0">Newest</option>
+                        <option value="1">Most Liked First</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group mt-4 p-2">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
             </div>
         </div>
+    </form> *@
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end my-3">
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+                     @* Model.Posts *@
+    @foreach (var post in Model)
+    {
+        <partial name="_PostFormPartial" model="@post" />
     }
     
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end my-3">
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 </body>
 </html>
 
