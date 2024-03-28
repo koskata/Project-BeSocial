@@ -1,5 +1,6 @@
 ﻿using BeSocial.Services.Interfaces;
 using BeSocial.Web.Infrastructure;
+using BeSocial.Web.ViewModels.Post;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,7 @@ namespace BeSocial.Web.Controllers
             postService = _postService;
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery] AllPostsQueryModel query)
         {
             //if (User?.Identity?.IsAuthenticated == false && User?.Identity == null)
             //{
@@ -24,9 +25,20 @@ namespace BeSocial.Web.Controllers
 
             //User.GetById();
 
-            var posts = await postService.GetAllPostsAsync();
+            var queryResult = postService.GetAllPostsAsync(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllPostsQueryModel.PostsPerPage);
 
-            return View(posts);
+            query.TotalPostsCount = queryResult.TotalPostsCount;
+            query.Posts = queryResult.Posts;
+
+            var postCategories = await postService.AllPostsCategoriesNames();
+            query.Categories = postCategories;
+
+            return View(query);
         }
     }
 }
