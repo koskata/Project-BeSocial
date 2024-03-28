@@ -9,6 +9,6 @@ namespace BeSocial.Web.ViewModels.Enums
     public enum PostSorting
     {
         Newest = 0,
-        MostLikedFirst = 1,
+        MostLiked = 1,
     }
 }
