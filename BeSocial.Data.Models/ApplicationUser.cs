@@ -5,12 +5,12 @@ using static BeSocial.Common.EntityValidationConstants.ApplicationUser;
 
 namespace BeSocial.Data.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<Guid>
     {
         public ApplicationUser()
         {
             Posts = new HashSet<Post>();
-            Groups = new HashSet<Group>();
+            JoinedGroups = new HashSet<Group>();
         }
 
         [Required]
@@ -25,6 +25,6 @@ namespace BeSocial.Data.Models
 
         public virtual ICollection<Post> Posts { get; set; }
 
-        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Group> JoinedGroups { get; set; }
     }
 }

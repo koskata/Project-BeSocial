@@ -22,5 +22,12 @@ namespace BeSocial.Data.Models
         [StringLength(DescriptionMaxLength)]
         [Comment("Comment description")]
         public string Description { get; set; } = string.Empty;
+
+        [Required]
+        [Comment("Post identifier")]
+        public int PostId { get; set; }
+
+        [ForeignKey(nameof(PostId))]
+        public Post Post { get; set; } = null!;
     }
 }

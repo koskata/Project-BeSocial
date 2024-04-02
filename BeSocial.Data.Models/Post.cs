@@ -9,13 +9,14 @@ namespace BeSocial.Data.Models
     {
         public Post()
         {
+            Id = Guid.NewGuid();
             Comments = new HashSet<Comment>();
             PostLikers = new HashSet<PostLiker>();
         }
 
         [Key]
         [Comment("Post identifier")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [Comment("Post title")]
@@ -29,7 +30,7 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("Post likes counter")]
-        public int Likes { get; set; }
+        public int Likes => PostLikers.Where(x => x.PostId == Id).Count(); // Not decideddddd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         [Required]
         [Comment("Post date of creation")]
@@ -37,22 +38,22 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("Creator identifier")]
-        public string OrganiserId { get; set; } = string.Empty;
+        public Guid OrganiserId { get; set; }
 
         [ForeignKey(nameof(OrganiserId))]
-        public ApplicationUser Organiser { get; set; } = null!;
+        public virtual ApplicationUser Organiser { get; set; } = null!;
 
         [Required]
         [Comment("Category identifier")]
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        public PostCategory PostCategory { get; set; } = null!;
+        public virtual Category Category { get; set; } = null!;
 
         [Comment("Group identifier")]
-        public int? GroupId { get; set; }
+        public Guid? GroupId { get; set; }
         [ForeignKey(nameof(GroupId))]
-        public Group? Group { get; set; }
+        public virtual Group? Group { get; set; }
 
 
         public virtual ICollection<Comment> Comments { get; set; }

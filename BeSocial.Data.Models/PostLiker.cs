@@ -7,13 +7,13 @@ namespace BeSocial.Data.Models
     {
         [Required]
         [Comment("Post liker identifier")]
-        public string LikerId { get; set; } = string.Empty;
+        public Guid LikerId { get; set; }
 
         public ApplicationUser Liker { get; set; } = null!;
 
         [Required]
         [Comment("Post identifier")]
-        public int PostId { get; set; }
+        public Guid PostId { get; set; }
 
         public Post Post { get; set; } = null!;
     }

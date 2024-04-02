@@ -9,13 +9,15 @@ namespace BeSocial.Data.Models
     {
         public Group()
         {
+            Id = Guid.NewGuid();
             GroupParticipants = new HashSet<GroupParticipant>();
             Posts = new HashSet<Post>();
+            PremiumUsersGroups = new HashSet<PremiumUserGroup>();
         }
 
         [Key]
         [Comment("Group identifier")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [Comment("Group name")]
@@ -24,20 +26,22 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("Creator of group identifier")]
-        public string OrganiserId { get; set; } = string.Empty;
+        public Guid OrganiserId { get; set; }
 
         [ForeignKey(nameof(OrganiserId))]
-        public ApplicationUser Organiser { get; set; } = null!;
+        public virtual ApplicationUser Organiser { get; set; } = null!;
 
         [Required]
         [Comment("Category identifier")]
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        public GroupCategory GroupCategory { get; set; } = null!;
+        public virtual Category Category { get; set; } = null!;
 
         public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<GroupParticipant> GroupParticipants { get; set; }
+
+        public virtual ICollection<PremiumUserGroup> PremiumUsersGroups { get; set; }
     }
 }
