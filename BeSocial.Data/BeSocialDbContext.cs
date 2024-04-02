@@ -15,10 +15,9 @@ namespace BeSocial.Data
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<GroupCategory> GroupCategories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<GroupParticipant> GroupParticipants { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostLiker> PostLikers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -42,6 +41,8 @@ namespace BeSocial.Data
                 .HasForeignKey(x => x.GroupId)
                 .OnDelete(DeleteBehavior.NoAction);
             
+
+
 
             base.OnModelCreating(builder);
         }
