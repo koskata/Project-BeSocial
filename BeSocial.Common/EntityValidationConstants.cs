@@ -17,13 +17,22 @@
             public const int LastNameMaxLength = 25;
         }
 
+        public static class PremiumUser
+        {
+            public const int FirstNameMinLength = 2;
+            public const int FirstNameMaxLength = 25;
+
+            public const int LastNameMinLength = 2;
+            public const int LastNameMaxLength = 25;
+        }
+
         public static class Group
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 20;
         }
 
-        public static class GroupCategory
+        public static class Category
         {
             public const int NameMinLength = 2;
             public const int NameMaxLength = 15;
@@ -38,12 +47,6 @@
             public const int DescriptionMaxLength = 500;
 
             public const string DateFormat = "dd/MM/yyyy HH:mm";
-        }
-
-        public static class PostCategory
-        {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 15;
         }
     }
 }
