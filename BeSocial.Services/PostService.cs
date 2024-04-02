@@ -21,9 +21,9 @@ namespace BeSocial.Services
         }
 
 
-        public async Task<IEnumerable<string>> AllPostsCategoriesNames()
+        public async Task<IEnumerable<string>> AllCategoriesNames()
         {
-            return await context.PostCategories.Select(c => c.Name).Distinct().ToListAsync();
+            return await context.Categories.Select(c => c.Name).Distinct().ToListAsync();
         }
 
 
@@ -37,7 +37,7 @@ namespace BeSocial.Services
 
             if (!string.IsNullOrWhiteSpace(category))
             {
-                postsQuery = context.Posts.Where(x => x.PostCategory.Name == category);
+                postsQuery = context.Posts.Where(x => x.Category.Name == category);
             }
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -58,12 +58,12 @@ namespace BeSocial.Services
                 .Skip((currentPage - 1) * postsPerPage)
                 .Take(postsPerPage)
                 .Select(x => new PostAllViewModel(
-                    x.Id,
+                    x.Id.ToString(),
                     x.Title,
                     x.Description,
                     x.Likes,
                     x.CreatedOn,
-                    x.PostCategory.Name
+                    x.Category.Name
                 )).ToList();
 
 
