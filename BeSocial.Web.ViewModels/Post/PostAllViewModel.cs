@@ -5,7 +5,7 @@ namespace BeSocial.Web.ViewModels.Post
 {
     public class PostAllViewModel
     {
-        public PostAllViewModel(int id, string title, string description, 
+        public PostAllViewModel(string id, string title, string description, 
             int likes, DateTime createdOn, string category)
         {
             Id = id;
@@ -16,7 +16,7 @@ namespace BeSocial.Web.ViewModels.Post
             Category = category;
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
 
         [Required]
         [StringLength(TitleMaxLength)]

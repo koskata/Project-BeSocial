@@ -13,7 +13,7 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("User identifier")]
-        public string UserId { get; set; } = string.Empty;
+        public Guid UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; } = null!;
@@ -25,7 +25,7 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("Post identifier")]
-        public int PostId { get; set; }
+        public Guid PostId { get; set; }
 
         [ForeignKey(nameof(PostId))]
         public Post Post { get; set; } = null!;

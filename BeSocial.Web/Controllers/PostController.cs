@@ -35,7 +35,7 @@ namespace BeSocial.Web.Controllers
             query.TotalPostsCount = queryResult.TotalPostsCount;
             query.Posts = queryResult.Posts;
 
-            var postCategories = await postService.AllPostsCategoriesNames();
+            var postCategories = await postService.AllCategoriesNamesAsync();
             query.Categories = postCategories;
 
             return View(query);

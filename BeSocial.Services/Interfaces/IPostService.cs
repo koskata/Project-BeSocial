@@ -16,6 +16,6 @@ namespace BeSocial.Services.Interfaces
                                                          PostSorting sorting = PostSorting.Newest,
                                                          int currentPage = 1,
                                                          int postsPerPage = 1);
-        Task<IEnumerable<string>> AllCategoriesNames();
+        Task<IEnumerable<string>> AllCategoriesNamesAsync();
     }
 }

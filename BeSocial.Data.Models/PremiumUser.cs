@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,26 +17,36 @@ namespace BeSocial.Data.Models
         public PremiumUser()
         {
             Id = Guid.NewGuid();
-            PremiumUsersGroups = new HashSet<PremiumUserGroup>();
-            Posts = new HashSet<Post>();
+            CreatedGroups = new HashSet<Group>();
         }
 
         [Key]
+        [Comment("Premium user identifier")]
         public Guid Id { get; set; }
 
         [Required]
         [Comment("Premium user first name")]
         [StringLength(FirstNameMaxLength)]
-        public string FirstName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = null!;
 
         [Required]
         [Comment("Premium user last name")]
         [StringLength(LastNameMaxLength)]
-        public string LastName { get; set; } = string.Empty;
+        public string LastName { get; set; } = null!;
 
-        public virtual ICollection<Post> Posts { get; set; }
+        [Required]
+        [Comment("Premium user description")]
+        [StringLength(DescriptionMaxLength)]
+        public string Description { get; set; } = null!;
 
-        public virtual ICollection<PremiumUserGroup> PremiumUsersGroups { get; set; }
+        [Comment("Normal user identifier")]
+        public Guid ApplicationUserId { get; set; }
+
+        [ForeignKey(nameof(ApplicationUserId))]
+
+        public virtual ApplicationUser ApplicationUser { get; set; } = null!;
+
+        public virtual ICollection<Group> CreatedGroups { get; set; }
 
     }
 }

@@ -30,7 +30,7 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("Post likes counter")]
-        public int Likes => PostLikers.Where(x => x.PostId == Id).Count(); // Not decideddddd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public int Likes { get; set; } // Not decideddddd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         [Required]
         [Comment("Post date of creation")]
@@ -38,10 +38,10 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("Creator identifier")]
-        public Guid OrganiserId { get; set; }
+        public Guid CreatorId { get; set; }
 
-        [ForeignKey(nameof(OrganiserId))]
-        public virtual ApplicationUser Organiser { get; set; } = null!;
+        [ForeignKey(nameof(CreatorId))]
+        public virtual ApplicationUser Creator { get; set; } = null!;
 
         [Required]
         [Comment("Category identifier")]

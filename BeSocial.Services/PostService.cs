@@ -21,7 +21,7 @@ namespace BeSocial.Services
         }
 
 
-        public async Task<IEnumerable<string>> AllCategoriesNames()
+        public async Task<IEnumerable<string>> AllCategoriesNamesAsync()
         {
             return await context.Categories.Select(c => c.Name).Distinct().ToListAsync();
         }
