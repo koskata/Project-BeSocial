@@ -1,11 +1,13 @@
-﻿using BeSocial.Data.Models;
+﻿using BeSocial.Data.Configuration;
+using BeSocial.Data.Models;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BeSocial.Data
 {
-    public class BeSocialDbContext : IdentityDbContext
+    public class BeSocialDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public BeSocialDbContext(DbContextOptions<BeSocialDbContext> options)
             : base(options)
@@ -19,6 +21,7 @@ namespace BeSocial.Data
         public DbSet<GroupParticipant> GroupParticipants { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostLiker> PostLikers { get; set; }
+        public DbSet<PremiumUser> PremiumUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -40,9 +43,24 @@ namespace BeSocial.Data
                 .WithMany(x => x.GroupParticipants)
                 .HasForeignKey(x => x.GroupId)
                 .OnDelete(DeleteBehavior.NoAction);
-            
 
+            builder.Entity<Comment>()
+                .HasOne(x => x.Post)
+                .WithMany(x => x.Comments)
+                .HasForeignKey(x => x.PostId)
+                .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<Group>()
+                .HasOne(x => x.PremiumUser)
+                .WithMany(x => x.CreatedGroups)
+                .HasForeignKey(x => x.PremiumUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+            builder.ApplyConfiguration(new CategoryEntityConfiguration());
+            builder.ApplyConfiguration(new GroupEntityConfiguration());
+            builder.ApplyConfiguration(new PostEntityConfiguration());
+            builder.ApplyConfiguration(new PremiumUserEntityConfiguration());
 
             base.OnModelCreating(builder);
         }

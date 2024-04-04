@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeSocial.Data.Migrations
 {
-    public partial class creatingTables : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace BeSocial.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -27,10 +27,9 @@ namespace BeSocial.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true, comment: "User's first name"),
-                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true, comment: "User's last name"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false, comment: "User's first name"),
+                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false, comment: "User's last name"),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -52,7 +51,7 @@ namespace BeSocial.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroupCategories",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Category identifier for group")
@@ -61,20 +60,7 @@ namespace BeSocial.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupCategories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PostCategories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Category identifier of post")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false, comment: "Category name of post")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostCategories", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +69,7 @@ namespace BeSocial.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -104,7 +90,7 @@ namespace BeSocial.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -126,7 +112,7 @@ namespace BeSocial.Data.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -143,8 +129,8 @@ namespace BeSocial.Data.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -167,7 +153,7 @@ namespace BeSocial.Data.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -184,38 +170,64 @@ namespace BeSocial.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PremiumUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Premium user identifier"),
+                    FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false, comment: "Premium user first name"),
+                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false, comment: "Premium user last name"),
+                    Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false, comment: "Premium user description"),
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Normal user identifier")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PremiumUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PremiumUsers_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Group identifier")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "Group name"),
-                    OrganiserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Creator of group identifier"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Category identifier")
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Group identifier"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Group name"),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Default user identifier who created the group"),
+                    CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Category identifier"),
+                    PremiumUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Premium user identifier who is creator of group")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Groups_AspNetUsers_OrganiserId",
-                        column: x => x.OrganiserId,
+                        name: "FK_Groups_AspNetUsers_CreatorId",
+                        column: x => x.CreatorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Groups_GroupCategories_CategoryId",
+                        name: "FK_Groups_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "GroupCategories",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Groups_PremiumUsers_PremiumUserId",
+                        column: x => x.PremiumUserId,
+                        principalTable: "PremiumUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "GroupParticipants",
                 columns: table => new
                 {
-                    GroupId = table.Column<int>(type: "int", nullable: false, comment: "Group identifier"),
-                    ParticipantId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Participant identifier")
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Group identifier"),
+                    ParticipantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Participant identifier")
                 },
                 constraints: table =>
                 {
@@ -237,23 +249,28 @@ namespace BeSocial.Data.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Post identifier")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false, comment: "Post title"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Post identifier"),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Post title"),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false, comment: "Post description"),
                     Likes = table.Column<int>(type: "int", nullable: false, comment: "Post likes counter"),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Post date of creation"),
-                    OrganiserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Creator identifier"),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Creator identifier"),
                     CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Category identifier"),
-                    GroupId = table.Column<int>(type: "int", nullable: true, comment: "Group identifier")
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Group identifier")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_AspNetUsers_OrganiserId",
-                        column: x => x.OrganiserId,
+                        name: "FK_Posts_AspNetUsers_CreatorId",
+                        column: x => x.CreatorId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Posts_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -261,12 +278,6 @@ namespace BeSocial.Data.Migrations
                         column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Posts_PostCategories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "PostCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -275,9 +286,9 @@ namespace BeSocial.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Comment identifier")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "User identifier"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "User identifier"),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "Comment description"),
-                    PostId = table.Column<int>(type: "int", nullable: true)
+                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Post identifier")
                 },
                 constraints: table =>
                 {
@@ -299,8 +310,8 @@ namespace BeSocial.Data.Migrations
                 name: "PostLikers",
                 columns: table => new
                 {
-                    LikerId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Post liker identifier"),
-                    PostId = table.Column<int>(type: "int", nullable: false, comment: "Post identifier")
+                    LikerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Post liker identifier"),
+                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Post identifier")
                 },
                 constraints: table =>
                 {
@@ -378,9 +389,14 @@ namespace BeSocial.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_OrganiserId",
+                name: "IX_Groups_CreatorId",
                 table: "Groups",
-                column: "OrganiserId");
+                column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_PremiumUserId",
+                table: "Groups",
+                column: "PremiumUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostLikers_PostId",
@@ -393,14 +409,19 @@ namespace BeSocial.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Posts_CreatorId",
+                table: "Posts",
+                column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_GroupId",
                 table: "Posts",
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_OrganiserId",
-                table: "Posts",
-                column: "OrganiserId");
+                name: "IX_PremiumUsers_ApplicationUserId",
+                table: "PremiumUsers",
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -439,13 +460,13 @@ namespace BeSocial.Data.Migrations
                 name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "PostCategories");
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "PremiumUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "GroupCategories");
         }
     }
 }

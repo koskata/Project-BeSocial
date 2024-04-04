@@ -41,23 +41,23 @@ namespace BeSocial.Data.Configuration
                     LastName = "Ivanov"
                 },
 
-                new ApplicationUser()
-                {
-                    Id = Guid.Parse("42409a8e-62ad-41ce-82be-533c18943886"),
-                    Email = "petardimitrov@gmail.com",
-                    NormalizedEmail = "PETARDIMITROV@GMAIL.COM",
-                    UserName = "petardimitrov@gmail.com",
-                    NormalizedUserName = "PETARDIMITROV@GMAIL.COM",
-                    EmailConfirmed = false,
-                    PasswordHash = "AQAAAAEAACcQAAAAEJ6e5b6IILTATdwrhIgcL44vS7V0QoXgsN/JewZM/bvogfLK8HB3GuIJcV9SMB0HJg==",
-                    SecurityStamp = "WNQJVQUUHUHBW4I5M5B5CC4322JZ267D",
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = true,
-                    AccessFailedCount = 0,
-                    FirstName = "Petar",
-                    LastName = "Dimitrov"
-                },
+                //new ApplicationUser()
+                //{
+                //    Id = Guid.Parse("42409a8e-62ad-41ce-82be-533c18943886"),
+                //    Email = "petardimitrov@gmail.com",
+                //    NormalizedEmail = "PETARDIMITROV@GMAIL.COM",
+                //    UserName = "petardimitrov@gmail.com",
+                //    NormalizedUserName = "PETARDIMITROV@GMAIL.COM",
+                //    EmailConfirmed = false,
+                //    PasswordHash = "AQAAAAEAACcQAAAAEJ6e5b6IILTATdwrhIgcL44vS7V0QoXgsN/JewZM/bvogfLK8HB3GuIJcV9SMB0HJg==",
+                //    SecurityStamp = "WNQJVQUUHUHBW4I5M5B5CC4322JZ267D",
+                //    PhoneNumberConfirmed = false,
+                //    TwoFactorEnabled = false,
+                //    LockoutEnabled = true,
+                //    AccessFailedCount = 0,
+                //    FirstName = "Petar",
+                //    LastName = "Dimitrov"
+                //},
 
                 new ApplicationUser()
                 {
