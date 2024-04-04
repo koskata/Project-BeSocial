@@ -24,12 +24,15 @@
 
             public const int LastNameMinLength = 2;
             public const int LastNameMaxLength = 25;
+
+            public const int DescriptionMinLength = 10;
+            public const int DescriptionMaxLength = 150;
         }
 
         public static class Group
         {
             public const int NameMinLength = 2;
-            public const int NameMaxLength = 20;
+            public const int NameMaxLength = 50;
         }
 
         public static class Category
@@ -41,7 +44,7 @@
         public static class Post
         {
             public const int TitleMinLength = 2;
-            public const int TitleMaxLength = 30;
+            public const int TitleMaxLength = 50;
 
             public const int DescriptionMinLength = 10;
             public const int DescriptionMaxLength = 500;
