@@ -20,6 +20,7 @@ namespace BeSocial.Data.Configuration
 
         private PremiumUser[] GeneratePremiumUsers()
         {
+
             List<PremiumUser> users = new List<PremiumUser>()
             {
                 new PremiumUser() 
@@ -29,7 +30,16 @@ namespace BeSocial.Data.Configuration
                     LastName = "Pavlov",
                     Description = "Hello, my name is Dimitar. I am 25 years old from Sofia. I would love it if you follow me for more content from me.",
                     ApplicationUserId = Guid.Parse("656592c0-e20c-4a11-900a-eb6c9cd94b20")
-                }
+                },
+
+                new PremiumUser()
+                {
+                    Id = 2,
+                    FirstName = "Admin",
+                    LastName = "Adminov",
+                    Description = "The best admin. You can't touch me!",
+                    ApplicationUserId = Guid.Parse("42409a8e-62ad-41ce-82be-533c18943886")
+                },
             };
 
             return users.ToArray();

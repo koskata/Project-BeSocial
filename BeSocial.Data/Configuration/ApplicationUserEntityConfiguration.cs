@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 using BeSocial.Data.Models;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+using static BeSocial.Common.GeneralApplicationConstants;
 
 namespace BeSocial.Data.Configuration
 {
@@ -21,6 +24,10 @@ namespace BeSocial.Data.Configuration
 
         private ApplicationUser[] GenerateUsers()
         {
+            ApplicationUser normalUser = new();
+            ApplicationUser premiumUser = new();
+            ApplicationUser adminUser = new();
+
             List<ApplicationUser> applicationUsers = new List<ApplicationUser>()
             {
                 new ApplicationUser()
@@ -30,34 +37,10 @@ namespace BeSocial.Data.Configuration
                     NormalizedEmail = "GEORGIIVANOV@GMAIL.COM",
                     UserName = "georgiivanov@gmail.com",
                     NormalizedUserName = "GEORGIIVANOV@GMAIL.COM",
-                    EmailConfirmed = false,
-                    PasswordHash = "AQAAAAEAACcQAAAAEHtgf9NoaG+oNtbYh0u0dX399hkZP+4zfe0dki/Z1h91TrRuG8y+bToQ99eB7fmxZQ==",
-                    SecurityStamp = "5KP4PV6DCRMT6GIQXH5UTIY3E35QGPU5",
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = true,
-                    AccessFailedCount = 0,
                     FirstName = "Georgi",
-                    LastName = "Ivanov"
+                    LastName = "Ivanov",
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
                 },
-
-                //new ApplicationUser()
-                //{
-                //    Id = Guid.Parse("42409a8e-62ad-41ce-82be-533c18943886"),
-                //    Email = "petardimitrov@gmail.com",
-                //    NormalizedEmail = "PETARDIMITROV@GMAIL.COM",
-                //    UserName = "petardimitrov@gmail.com",
-                //    NormalizedUserName = "PETARDIMITROV@GMAIL.COM",
-                //    EmailConfirmed = false,
-                //    PasswordHash = "AQAAAAEAACcQAAAAEJ6e5b6IILTATdwrhIgcL44vS7V0QoXgsN/JewZM/bvogfLK8HB3GuIJcV9SMB0HJg==",
-                //    SecurityStamp = "WNQJVQUUHUHBW4I5M5B5CC4322JZ267D",
-                //    PhoneNumberConfirmed = false,
-                //    TwoFactorEnabled = false,
-                //    LockoutEnabled = true,
-                //    AccessFailedCount = 0,
-                //    FirstName = "Petar",
-                //    LastName = "Dimitrov"
-                //},
 
                 new ApplicationUser()
                 {
@@ -66,17 +49,45 @@ namespace BeSocial.Data.Configuration
                     NormalizedEmail = "DIMITARPAVLOV@GMAIL.COM",
                     UserName = "dimitarpavlov@gmail.com",
                     NormalizedUserName = "DIMITARPAVLOV@GMAIL.COM",
-                    EmailConfirmed = false,
-                    PasswordHash = "AQAAAAEAACcQAAAAEKnNQRBxWjhQ1jhR6aqzV2cA6GlVk1Xpk0BzTzBLrC1/fz+SvzLSyPDTz1MhqGV3Tw==",
-                    SecurityStamp = "OAD62GJU3G2YF7PWPMEZCF3GHPWQ7HMB",
-                    PhoneNumberConfirmed = false,
-                    TwoFactorEnabled = false,
-                    LockoutEnabled = true,
-                    AccessFailedCount = 0,
                     FirstName = "Dimitar",
-                    LastName = "Pavlov"
+                    LastName = "Pavlov",
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
+                },
+
+                new ApplicationUser()
+                {
+                    Id = Guid.Parse("42409a8e-62ad-41ce-82be-533c18943886"),
+                    Email = AdminEmail,
+                    NormalizedEmail = AdminEmail,
+                    UserName = AdminEmail,
+                    NormalizedUserName = AdminEmail,
+                    FirstName = "Admin",
+                    LastName = "Adminov",
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
                 },
             };
+
+            foreach (var user in applicationUsers)
+            {
+                if (user.FirstName == "Georgi")
+                {
+                    normalUser = user;
+                }
+                else if (user.FirstName == "Dimitar")
+                {
+                    premiumUser = user;
+                }
+                else if (user.FirstName == "Admin")
+                {
+                    adminUser = user;
+                }
+            }
+
+            var hasher = new PasswordHasher<ApplicationUser>();
+
+            normalUser.PasswordHash = hasher.HashPassword(normalUser, "Normal123");
+            premiumUser.PasswordHash = hasher.HashPassword(premiumUser, "Premium123");
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "Admin123");
 
             return applicationUsers.ToArray();
         }

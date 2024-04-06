@@ -198,17 +198,11 @@ namespace BeSocial.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Group identifier"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Group name"),
                     CreatorId = table.Column<int>(type: "int", nullable: false, comment: "Premium user identifier who is creator of group"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Category identifier"),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Category identifier")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Groups_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Groups_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -383,11 +377,6 @@ namespace BeSocial.Data.Migrations
                 name: "IX_GroupParticipants_ParticipantId",
                 table: "GroupParticipants",
                 column: "ParticipantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Groups_ApplicationUserId",
-                table: "Groups",
-                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_CategoryId",

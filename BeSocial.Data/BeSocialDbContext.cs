@@ -50,12 +50,6 @@ namespace BeSocial.Data
                 .HasForeignKey(x => x.PostId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            //builder.Entity<Group>()
-            //    .HasOne(x => x.PremiumUser)
-            //    .WithMany(x => x.CreatedGroups)
-            //    .HasForeignKey(x => x.PremiumUserId)
-            //    .OnDelete(DeleteBehavior.NoAction);
-
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
             builder.ApplyConfiguration(new CategoryEntityConfiguration());
             builder.ApplyConfiguration(new GroupEntityConfiguration());

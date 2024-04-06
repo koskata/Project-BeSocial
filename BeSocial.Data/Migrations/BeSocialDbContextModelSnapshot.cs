@@ -104,17 +104,17 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "69fc34ed-9f57-4ed3-93aa-d80d7657ce1f",
+                            ConcurrencyStamp = "2fae81d0-26cc-4a15-a8de-026fd5b3689c",
                             Email = "georgiivanov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Georgi",
                             LastName = "Ivanov",
-                            LockoutEnabled = true,
+                            LockoutEnabled = false,
                             NormalizedEmail = "GEORGIIVANOV@GMAIL.COM",
                             NormalizedUserName = "GEORGIIVANOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHtgf9NoaG+oNtbYh0u0dX399hkZP+4zfe0dki/Z1h91TrRuG8y+bToQ99eB7fmxZQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGfPfRz7C91/b/oxT9fDLMi/IyXBiwszmiHKZyANzJqvANNXSlco1I40vPDzMvf1Cg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5KP4PV6DCRMT6GIQXH5UTIY3E35QGPU5",
+                            SecurityStamp = "92ec64dc-deed-4c10-b96e-b7dcd02ea143",
                             TwoFactorEnabled = false,
                             UserName = "georgiivanov@gmail.com"
                         },
@@ -122,19 +122,37 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cfafb124-5279-4f20-8467-b2423899c8f2",
+                            ConcurrencyStamp = "50b90bc9-0a2c-4318-89ac-d3e65f3f04e1",
                             Email = "dimitarpavlov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Dimitar",
                             LastName = "Pavlov",
-                            LockoutEnabled = true,
+                            LockoutEnabled = false,
                             NormalizedEmail = "DIMITARPAVLOV@GMAIL.COM",
                             NormalizedUserName = "DIMITARPAVLOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKnNQRBxWjhQ1jhR6aqzV2cA6GlVk1Xpk0BzTzBLrC1/fz+SvzLSyPDTz1MhqGV3Tw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIGqOuBDAzCmyN06ZHHcJ1OnkGWVE/U/6v/GavQrN+KOuJq1u9qKs+lqEJthbmzJYA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "OAD62GJU3G2YF7PWPMEZCF3GHPWQ7HMB",
+                            SecurityStamp = "f87e6ae4-949e-4f08-bb73-1111cb89d2ba",
                             TwoFactorEnabled = false,
                             UserName = "dimitarpavlov@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("42409a8e-62ad-41ce-82be-533c18943886"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "11011c0b-d5a9-4ed1-80f5-67f81947af91",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Admin",
+                            LastName = "Adminov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "admin@gmail.com",
+                            NormalizedUserName = "admin@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBc9bfgA8ilkZTapegAbsIjNkFCPsNM2bFsbUcyEt1muPSWuC6cPtz8+eunrgUnFcA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2d464a10-b5a9-4663-b891-ee51c577feb8",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
                         });
                 });
 
@@ -224,9 +242,6 @@ namespace BeSocial.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Group identifier");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int")
                         .HasComment("Category identifier");
@@ -242,8 +257,6 @@ namespace BeSocial.Data.Migrations
                         .HasComment("Group name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoryId");
 
@@ -422,6 +435,14 @@ namespace BeSocial.Data.Migrations
                             Description = "Hello, my name is Dimitar. I am 25 years old from Sofia. I would love it if you follow me for more content from me.",
                             FirstName = "Dimitar",
                             LastName = "Pavlov"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApplicationUserId = new Guid("42409a8e-62ad-41ce-82be-533c18943886"),
+                            Description = "The best admin. You can't touch me!",
+                            FirstName = "Admin",
+                            LastName = "Adminov"
                         });
                 });
 
@@ -581,10 +602,6 @@ namespace BeSocial.Data.Migrations
 
             modelBuilder.Entity("BeSocial.Data.Models.Group", b =>
                 {
-                    b.HasOne("BeSocial.Data.Models.ApplicationUser", null)
-                        .WithMany("JoinedGroups")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("BeSocial.Data.Models.Category", "Category")
                         .WithMany("Groups")
                         .HasForeignKey("CategoryId")
@@ -611,7 +628,7 @@ namespace BeSocial.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BeSocial.Data.Models.ApplicationUser", "Participant")
-                        .WithMany()
+                        .WithMany("GroupParticipants")
                         .HasForeignKey("ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -729,7 +746,7 @@ namespace BeSocial.Data.Migrations
 
             modelBuilder.Entity("BeSocial.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("JoinedGroups");
+                    b.Navigation("GroupParticipants");
 
                     b.Navigation("Posts");
                 });

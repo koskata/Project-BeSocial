@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeSocial.Data.Migrations
 {
     [DbContext(typeof(BeSocialDbContext))]
-    [Migration("20240406102426_creatingDatabase")]
+    [Migration("20240406192844_creatingDatabase")]
     partial class creatingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -161,9 +161,6 @@ namespace BeSocial.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Group identifier");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int")
                         .HasComment("Category identifier");
@@ -179,8 +176,6 @@ namespace BeSocial.Data.Migrations
                         .HasComment("Group name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoryId");
 
@@ -467,10 +462,6 @@ namespace BeSocial.Data.Migrations
 
             modelBuilder.Entity("BeSocial.Data.Models.Group", b =>
                 {
-                    b.HasOne("BeSocial.Data.Models.ApplicationUser", null)
-                        .WithMany("JoinedGroups")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("BeSocial.Data.Models.Category", "Category")
                         .WithMany("Groups")
                         .HasForeignKey("CategoryId")
@@ -497,7 +488,7 @@ namespace BeSocial.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("BeSocial.Data.Models.ApplicationUser", "Participant")
-                        .WithMany()
+                        .WithMany("GroupParticipants")
                         .HasForeignKey("ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -615,7 +606,7 @@ namespace BeSocial.Data.Migrations
 
             modelBuilder.Entity("BeSocial.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("JoinedGroups");
+                    b.Navigation("GroupParticipants");
 
                     b.Navigation("Posts");
                 });
