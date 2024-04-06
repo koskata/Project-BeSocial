@@ -5,34 +5,25 @@ using BeSocial.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BeSocial.Data.Models;
+using BeSocial.Web.Infrastructure;
 
 namespace BeSocial.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<BeSocialDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireDigit = false;
-            })
-                .AddRoles<IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<BeSocialDbContext>();
-
-            builder.Services.AddScoped<IPostService, PostService>();
-
+            //Add DbContext to the app
+            builder.Services.AddApplicationDbContext(builder.Configuration);
+            //Add Identity to the app
+            builder.Services.AddApplicationIdentity(builder.Configuration);
+            
             builder.Services.AddControllersWithViews();
+
+            //Add Services to the app
+            builder.Services.AddApplicationServices(typeof(IPostService));
 
             var app = builder.Build();
 
@@ -56,12 +47,20 @@ namespace BeSocial.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+
+            app.MapDefaultControllerRoute();
             app.MapRazorPages();
 
-            app.Run();
+            await app.CreateAdminRoleAsync();
+
+            await app.RunAsync();
         }
     }
 }
