@@ -24,7 +24,7 @@ namespace BeSocial.Data.Configuration
             {
                 new PremiumUser() 
                 {
-                    Id = Guid.Parse("2094F5C9-A588-4E76-8B7F-AD4A0866189B"),
+                    Id = 1,
                     FirstName = "Dimitar",
                     LastName = "Pavlov",
                     Description = "Hello, my name is Dimitar. I am 25 years old from Sofia. I would love it if you follow me for more content from me.",

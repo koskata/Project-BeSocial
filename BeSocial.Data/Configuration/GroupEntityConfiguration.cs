@@ -33,9 +33,8 @@ namespace BeSocial.Data.Configuration
                 {
                     Id = Guid.Parse("e4d30dd1-31f7-4a05-9f45-9b40f8bad5eb"),
                     Name = "Champions League Matches",
-                    CreatorId = Guid.Parse("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
-                    CategoryId = 3,
-                    PremiumUserId = Guid.Parse("2094F5C9-A588-4E76-8B7F-AD4A0866189B")
+                    CreatorId = 1,
+                    CategoryId = 3
                 },
             };
 
