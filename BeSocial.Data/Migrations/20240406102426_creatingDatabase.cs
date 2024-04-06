@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeSocial.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class creatingDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -173,7 +173,8 @@ namespace BeSocial.Data.Migrations
                 name: "PremiumUsers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Premium user identifier"),
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "Premium user identifier")
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false, comment: "Premium user first name"),
                     LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false, comment: "Premium user last name"),
                     Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false, comment: "Premium user description"),
@@ -196,19 +197,18 @@ namespace BeSocial.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Group identifier"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Group name"),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Default user identifier who created the group"),
+                    CreatorId = table.Column<int>(type: "int", nullable: false, comment: "Premium user identifier who is creator of group"),
                     CategoryId = table.Column<int>(type: "int", nullable: false, comment: "Category identifier"),
-                    PremiumUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Premium user identifier who is creator of group")
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Groups_AspNetUsers_CreatorId",
-                        column: x => x.CreatorId,
+                        name: "FK_Groups_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Groups_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -216,10 +216,11 @@ namespace BeSocial.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Groups_PremiumUsers_PremiumUserId",
-                        column: x => x.PremiumUserId,
+                        name: "FK_Groups_PremiumUsers_CreatorId",
+                        column: x => x.CreatorId,
                         principalTable: "PremiumUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -384,6 +385,11 @@ namespace BeSocial.Data.Migrations
                 column: "ParticipantId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Groups_ApplicationUserId",
+                table: "Groups",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Groups_CategoryId",
                 table: "Groups",
                 column: "CategoryId");
@@ -392,11 +398,6 @@ namespace BeSocial.Data.Migrations
                 name: "IX_Groups_CreatorId",
                 table: "Groups",
                 column: "CreatorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Groups_PremiumUserId",
-                table: "Groups",
-                column: "PremiumUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostLikers_PostId",

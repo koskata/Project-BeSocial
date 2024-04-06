@@ -14,8 +14,8 @@ namespace BeSocial.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"), 0, "c9c430d2-565d-4c0c-b509-bd85da090ff7", "dimitarpavlov@gmail.com", false, "Dimitar", "Pavlov", true, null, "DIMITARPAVLOV@GMAIL.COM", "DIMITARPAVLOV@GMAIL.COM", "AQAAAAEAACcQAAAAEKnNQRBxWjhQ1jhR6aqzV2cA6GlVk1Xpk0BzTzBLrC1/fz+SvzLSyPDTz1MhqGV3Tw==", null, false, "OAD62GJU3G2YF7PWPMEZCF3GHPWQ7HMB", false, "dimitarpavlov@gmail.com" },
-                    { new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"), 0, "7eb380da-3373-4d72-bda1-373fc72570ae", "georgiivanov@gmail.com", false, "Georgi", "Ivanov", true, null, "GEORGIIVANOV@GMAIL.COM", "GEORGIIVANOV@GMAIL.COM", "AQAAAAEAACcQAAAAEHtgf9NoaG+oNtbYh0u0dX399hkZP+4zfe0dki/Z1h91TrRuG8y+bToQ99eB7fmxZQ==", null, false, "5KP4PV6DCRMT6GIQXH5UTIY3E35QGPU5", false, "georgiivanov@gmail.com" }
+                    { new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"), 0, "cfafb124-5279-4f20-8467-b2423899c8f2", "dimitarpavlov@gmail.com", false, "Dimitar", "Pavlov", true, null, "DIMITARPAVLOV@GMAIL.COM", "DIMITARPAVLOV@GMAIL.COM", "AQAAAAEAACcQAAAAEKnNQRBxWjhQ1jhR6aqzV2cA6GlVk1Xpk0BzTzBLrC1/fz+SvzLSyPDTz1MhqGV3Tw==", null, false, "OAD62GJU3G2YF7PWPMEZCF3GHPWQ7HMB", false, "dimitarpavlov@gmail.com" },
+                    { new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"), 0, "69fc34ed-9f57-4ed3-93aa-d80d7657ce1f", "georgiivanov@gmail.com", false, "Georgi", "Ivanov", true, null, "GEORGIIVANOV@GMAIL.COM", "GEORGIIVANOV@GMAIL.COM", "AQAAAAEAACcQAAAAEHtgf9NoaG+oNtbYh0u0dX399hkZP+4zfe0dki/Z1h91TrRuG8y+bToQ99eB7fmxZQ==", null, false, "5KP4PV6DCRMT6GIQXH5UTIY3E35QGPU5", false, "georgiivanov@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -43,12 +43,12 @@ namespace BeSocial.Data.Migrations
             migrationBuilder.InsertData(
                 table: "PremiumUsers",
                 columns: new[] { "Id", "ApplicationUserId", "Description", "FirstName", "LastName" },
-                values: new object[] { new Guid("2094f5c9-a588-4e76-8b7f-ad4a0866189b"), new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"), "Hello, my name is Dimitar. I am 25 years old from Sofia. I would love it if you follow me for more content from me.", "Dimitar", "Pavlov" });
+                values: new object[] { 1, new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"), "Hello, my name is Dimitar. I am 25 years old from Sofia. I would love it if you follow me for more content from me.", "Dimitar", "Pavlov" });
 
             migrationBuilder.InsertData(
                 table: "Groups",
-                columns: new[] { "Id", "CategoryId", "CreatorId", "Name", "PremiumUserId" },
-                values: new object[] { new Guid("e4d30dd1-31f7-4a05-9f45-9b40f8bad5eb"), 3, new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"), "Champions League Matches", new Guid("2094f5c9-a588-4e76-8b7f-ad4a0866189b") });
+                columns: new[] { "Id", "ApplicationUserId", "CategoryId", "CreatorId", "Name" },
+                values: new object[] { new Guid("e4d30dd1-31f7-4a05-9f45-9b40f8bad5eb"), null, 3, 1, "Champions League Matches" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -106,7 +106,7 @@ namespace BeSocial.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "PremiumUsers",
                 keyColumn: "Id",
-                keyValue: new Guid("2094f5c9-a588-4e76-8b7f-ad4a0866189b"));
+                keyValue: 1);
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",

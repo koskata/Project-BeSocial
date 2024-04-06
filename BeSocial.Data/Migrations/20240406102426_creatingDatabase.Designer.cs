@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeSocial.Data.Migrations
 {
     [DbContext(typeof(BeSocialDbContext))]
-    [Migration("20240404215208_Initial")]
-    partial class Initial
+    [Migration("20240406102426_creatingDatabase")]
+    partial class creatingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.23")
+                .HasAnnotation("ProductVersion", "6.0.28")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -161,13 +161,16 @@ namespace BeSocial.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Group identifier");
 
+                    b.Property<Guid?>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int")
                         .HasComment("Category identifier");
 
-                    b.Property<Guid>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Default user identifier who created the group");
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int")
+                        .HasComment("Premium user identifier who is creator of group");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -175,17 +178,13 @@ namespace BeSocial.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasComment("Group name");
 
-                    b.Property<Guid>("PremiumUserId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Premium user identifier who is creator of group");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CreatorId");
-
-                    b.HasIndex("PremiumUserId");
 
                     b.ToTable("Groups");
                 });
@@ -276,10 +275,12 @@ namespace BeSocial.Data.Migrations
 
             modelBuilder.Entity("BeSocial.Data.Models.PremiumUser", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasComment("Premium user identifier");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier")
@@ -466,29 +467,25 @@ namespace BeSocial.Data.Migrations
 
             modelBuilder.Entity("BeSocial.Data.Models.Group", b =>
                 {
+                    b.HasOne("BeSocial.Data.Models.ApplicationUser", null)
+                        .WithMany("JoinedGroups")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("BeSocial.Data.Models.Category", "Category")
                         .WithMany("Groups")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BeSocial.Data.Models.ApplicationUser", "Creator")
-                        .WithMany("JoinedGroups")
+                    b.HasOne("BeSocial.Data.Models.PremiumUser", "Creator")
+                        .WithMany("CreatedGroups")
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BeSocial.Data.Models.PremiumUser", "PremiumUser")
-                        .WithMany("CreatedGroups")
-                        .HasForeignKey("PremiumUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Category");
 
                     b.Navigation("Creator");
-
-                    b.Navigation("PremiumUser");
                 });
 
             modelBuilder.Entity("BeSocial.Data.Models.GroupParticipant", b =>
