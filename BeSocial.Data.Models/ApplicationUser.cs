@@ -10,7 +10,7 @@ namespace BeSocial.Data.Models
         public ApplicationUser()
         {
             Posts = new HashSet<Post>();
-            JoinedGroups = new HashSet<Group>();
+            GroupParticipants = new HashSet<GroupParticipant>();
         }
 
         [Required]
@@ -25,6 +25,6 @@ namespace BeSocial.Data.Models
 
         public virtual ICollection<Post> Posts { get; set; }
 
-        public virtual ICollection<Group> JoinedGroups { get; set; }
+        public virtual ICollection<GroupParticipant> GroupParticipants { get; set; }
     }
 }
