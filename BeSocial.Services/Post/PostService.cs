@@ -9,7 +9,7 @@ using static BeSocial.Web.Infrastructure.ClaimsPrincipalExtension;
 using static BeSocial.Common.EntityValidationConstants.Post;
 using System.Linq;
 
-namespace BeSocial.Services
+namespace BeSocial.Services.Post
 {
     public class PostService : IPostService
     {

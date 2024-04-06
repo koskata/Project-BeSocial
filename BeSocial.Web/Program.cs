@@ -24,6 +24,7 @@ namespace BeSocial.Web
 
             //Add Services to the app
             builder.Services.AddApplicationServices(typeof(IPostService));
+            //builder.Services.AddApplicationServices(typeof(IUserService));
 
             var app = builder.Build();
 
