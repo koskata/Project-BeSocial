@@ -8,9 +8,8 @@ namespace BeSocial.Common
 {
     public class GeneralApplicationConstants
     {
-        public const string PremiumUserRoleName = "Premium";
-        public const string PremiumUserAreaName = "Premium";
-
-        public const string PremiumUserDimitarEmail = "dimitarpavlov@gmail.com";
+        public const string AdminRoleName = "Admin";
+        public const string AdminAreaName = "Admin";
+        public const string AdminEmail = "admin@gmail.com";
     }
 }
