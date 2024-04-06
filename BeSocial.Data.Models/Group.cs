@@ -24,11 +24,10 @@ namespace BeSocial.Data.Models
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        [Comment("Default user identifier who created the group")]
-        public Guid CreatorId { get; set; }
-
+        [Comment("Premium user identifier who is creator of group")]
+        public int CreatorId { get; set; }
         [ForeignKey(nameof(CreatorId))]
-        public virtual ApplicationUser Creator { get; set; } = null!;
+        public PremiumUser Creator { get; set; } = null!;
 
         [Required]
         [Comment("Category identifier")]
@@ -36,12 +35,6 @@ namespace BeSocial.Data.Models
 
         [ForeignKey(nameof(CategoryId))]
         public virtual Category Category { get; set; } = null!;
-
-        [Required]
-        [Comment("Premium user identifier who is creator of group")]
-        public Guid PremiumUserId { get; set; }
-        [ForeignKey(nameof(PremiumUserId))]
-        public PremiumUser PremiumUser { get; set; } = null!;
 
         public virtual ICollection<Post> Posts { get; set; }
 

@@ -16,13 +16,12 @@ namespace BeSocial.Data.Models
     {
         public PremiumUser()
         {
-            Id = Guid.NewGuid();
             CreatedGroups = new HashSet<Group>();
         }
 
         [Key]
         [Comment("Premium user identifier")]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [Comment("Premium user first name")]
