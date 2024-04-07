@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using static BeSocial.Web.Infrastructure.ClaimsPrincipalExtension;
 using static BeSocial.Common.EntityValidationConstants.Post;
 using System.Linq;
+using BeSocial.Data.Models;
 
 namespace BeSocial.Services.Post
 {
@@ -75,5 +76,25 @@ namespace BeSocial.Services.Post
                 Posts = posts
             };
         }
+
+        public async Task LikePostAsync(string postId, string userId)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
+
+            if (post != null)
+            {
+                post.Likes++;
+                post.PostLikers.Add(new PostLiker
+                {
+                    PostId = Guid.Parse(postId),
+                    LikerId = Guid.Parse(userId)
+                });
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> LikerExistsOnPostAsync(string userId)
+            => await context.PostLikers.AnyAsync(x => x.LikerId.ToString() == userId);
     }
 }

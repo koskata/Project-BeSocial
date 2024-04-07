@@ -17,5 +17,9 @@ namespace BeSocial.Services.Interfaces
                                                          int currentPage = 1,
                                                          int postsPerPage = 1);
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
+
+        Task LikePostAsync(string postId, string userId);
+
+        Task<bool> LikerExistsOnPostAsync(string userId);
     }
 }
