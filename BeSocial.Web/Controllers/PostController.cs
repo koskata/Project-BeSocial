@@ -40,5 +40,20 @@ namespace BeSocial.Web.Controllers
 
             return View(query);
         }
+
+        
+        public async Task<IActionResult> Like(string postId)
+        {
+            string userId = User.GetById();
+
+            if (await postService.LikerExistsOnPostAsync(userId))
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            await postService.LikePostAsync(postId, userId);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }
