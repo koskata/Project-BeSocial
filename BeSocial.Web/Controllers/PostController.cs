@@ -4,6 +4,8 @@ using BeSocial.Web.ViewModels.Post;
 
 using Microsoft.AspNetCore.Mvc;
 
+using static BeSocial.Common.ErrorMessages;
+
 namespace BeSocial.Web.Controllers
 {
     public class PostController : Controller
@@ -41,17 +43,102 @@ namespace BeSocial.Web.Controllers
             return View(query);
         }
 
-        
+
         public async Task<IActionResult> Like(string postId)
         {
             string userId = User.GetById();
 
-            if (await postService.LikerExistsOnPostAsync(userId))
+            if (await postService.LikerExistsOnPostAsync(userId, postId))
             {
                 return RedirectToAction(nameof(All));
             }
 
             await postService.LikePostAsync(postId, userId);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (!await postService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            if (await postService.HasUserWithIdAsync(id, this.User.GetById()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await postService.GetPostFormModelByIdAsync(id);
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(PostFormServiceModel model, string id)
+        {
+            if (!await postService.ExistsAsync(id))
+            {
+                return this.View();
+            }
+
+            if (await postService.HasUserWithIdAsync(id, this.User.GetById()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if (await postService.CategoryExistsAsync(model.CategoryId) == false)
+            {
+                this.ModelState.AddModelError(nameof(model.CategoryId), CategoryDoesNotExist);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await postService.AllCategoriesAsync();
+
+                return View(model);
+            }
+
+            await postService.EditAsync(model, id);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (!await postService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await postService.HasUserWithIdAsync(id, User.GetById()))
+            {
+                return Unauthorized();
+            }
+
+            var post = await postService.PostById(id);
+
+            return View(post);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(PostServiceModel model, string id)
+        {
+            if (!await postService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            if (!await postService.HasUserWithIdAsync(id, User.GetById()))
+            {
+                return Unauthorized();
+            }
+
+            await postService.DeleteAsync(id);
 
             return RedirectToAction(nameof(All));
         }
