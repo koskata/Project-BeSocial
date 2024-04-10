@@ -21,12 +21,47 @@ namespace BeSocial.Services.Post
             context = _context;
         }
 
+        public async Task<IEnumerable<PostCategoryServiceModel>> AllCategoriesAsync()
+            => await context.Categories.Select(x => new PostCategoryServiceModel() { Id = x.Id, Name = x.Name }).ToListAsync();
 
         public async Task<IEnumerable<string>> AllCategoriesNamesAsync()
         {
             return await context.Categories.Select(c => c.Name).Distinct().ToListAsync();
         }
 
+        public async Task<bool> CategoryExistsAsync(int categoryId)
+            => await context.Categories.AnyAsync(x => x.Id == categoryId);
+
+        public async Task DeleteAsync(string postId)
+        {
+            //var post = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
+
+            //var entry = await context.PostLikers.FirstOrDefaultAsync(x => x.PostId.ToString() == postId);
+            //if (entry != null)
+            //{
+            //    context.PostLikers.Remove(entry);
+            //}
+
+            //context.Posts.Remove(post);
+            //await context.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(PostFormServiceModel model, string postId)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
+
+            if (post != null)
+            {
+                post.Title = model.Title;
+                post.Description = model.Description;
+                post.CategoryId = model.CategoryId;
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> ExistsAsync(string id)
+            => await context.Posts.AnyAsync(x => x.Id.ToString() == id);
 
         public PostQueryServiceModel GetAllPostsAsync(string category = null,
                                                                             string searchTerm = null,
@@ -77,6 +112,28 @@ namespace BeSocial.Services.Post
             };
         }
 
+        public async Task<PostFormServiceModel> GetPostFormModelByIdAsync(string postId)
+        {
+            var model = await context.Posts
+                .Where(x => x.Id.ToString() == postId)
+                .Select(x => new PostFormServiceModel()
+                {
+                    Title = x.Title,
+                    Description = x.Description,
+                    CategoryId = x.CategoryId
+                }).FirstOrDefaultAsync();
+
+            if (model != null)
+            {
+                model.Categories = await AllCategoriesAsync();
+            }
+
+            return model;
+        }
+
+        public async Task<bool> HasUserWithIdAsync(string postId, string currentUserId)
+            => await context.Posts.AnyAsync(x => x.Id.ToString() == postId && x.CreatorId.ToString() == currentUserId);
+
         public async Task LikePostAsync(string postId, string userId)
         {
             var post = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
@@ -94,7 +151,30 @@ namespace BeSocial.Services.Post
             }
         }
 
-        public async Task<bool> LikerExistsOnPostAsync(string userId)
-            => await context.PostLikers.AnyAsync(x => x.LikerId.ToString() == userId);
+        public async Task<bool> LikerExistsOnPostAsync(string userId, string postId)
+            => await context.PostLikers.AnyAsync(x => x.LikerId.ToString() == userId && x.PostId.ToString() == postId);
+
+        public async Task<PostServiceModel> PostById(string postId)
+        {
+            var postToFind = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
+
+            var model = await context.Posts
+                .Where(x => x.Id.ToString() == postId)
+                .Select(x => new PostServiceModel()
+                {
+                    Id = x.Id.ToString(),
+                    Title = x.Title,
+                    Description = x.Description,
+                    CreatorFullName = $"{x.Creator.FirstName} {x.Creator.LastName}",
+                    Category = x.Category.Name
+                }).FirstAsync();
+
+            if (postToFind.Group != null)
+            {
+                model.Group = postToFind.Group.Name;
+            }
+
+            return model;
+        }
     }
 }

@@ -20,6 +20,22 @@ namespace BeSocial.Services.Interfaces
 
         Task LikePostAsync(string postId, string userId);
 
-        Task<bool> LikerExistsOnPostAsync(string userId);
+        Task<bool> LikerExistsOnPostAsync(string userId, string postId);
+
+        Task<bool> HasUserWithIdAsync(string postId, string currentUserId);
+
+        Task EditAsync(PostFormServiceModel model, string postId);
+
+        Task<bool> ExistsAsync(string id);
+
+        Task<PostFormServiceModel> GetPostFormModelByIdAsync(string postId);
+
+        Task<IEnumerable<PostCategoryServiceModel>> AllCategoriesAsync();
+
+        Task<bool> CategoryExistsAsync(int categoryId);
+
+        Task<PostServiceModel> PostById(string postId);
+
+        Task DeleteAsync(string postId);
     }
 }
