@@ -1,0 +1,49 @@
+﻿@model PostServiceModel
+
+@{
+    ViewBag.Title = "Delete House";
+}
+
+<style>
+    .backDel {
+        background-color: #DADADA;
+        padding: 2em;
+        border-radius: 0.3em;
+    }
+</style>
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<form asp-action="Delete">
+    <div class="row text-center">
+        <div class="col-md-12 text-center backDel">
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control"/>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control"/>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CreatorFullName" class="control-label"></label>
+                <input asp-for="CreatorFullName" class="form-control"/>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control"/>
+            </div>
+            @if (@Model.Group != null)
+            {
+                <div class="form-group mb-3">
+                    <label asp-for="Group" class="control-label"></label>
+                    <input asp-for="Group" class="form-control"/>
+                </div>
+            }
+            <div class="form-group mt-3">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
