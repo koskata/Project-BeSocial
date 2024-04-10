@@ -30,7 +30,7 @@ namespace BeSocial.Data.Models
 
         [Required]
         [Comment("Post likes counter")]
-        public int Likes { get; set; } // Not decideddddd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        public int Likes { get; set; }
 
         [Required]
         [Comment("Post date of creation")]
