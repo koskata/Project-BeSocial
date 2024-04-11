@@ -11,7 +11,7 @@ namespace BeSocial.Services.Interfaces
 {
     public interface IPostService
     {
-        PostQueryServiceModel GetAllPostsAsync(string category = null,
+        Task<PostQueryServiceModel> GetAllPostsAsync(string category = null,
                                                          string searchTerm = null,
                                                          PostSorting sorting = PostSorting.Newest,
                                                          int currentPage = 1,
@@ -34,8 +34,14 @@ namespace BeSocial.Services.Interfaces
 
         Task<bool> CategoryExistsAsync(int categoryId);
 
-        Task<PostServiceModel> PostById(string postId);
+        Task<PostServiceModel> PostByIdAsync(string postId);
 
         Task DeleteAsync(string postId);
+
+        Task<IEnumerable<PostCommentServiceModel>> GetAllCommentsFromPostAsync(string postId);
+
+        Task CreateComment(PostCommentServiceModel model, string userId, string postId);
+
+        Task<PostCommentServiceModel> SetPostTitleToComment(string postId);
     }
 }

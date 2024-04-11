@@ -34,16 +34,18 @@ namespace BeSocial.Services.Post
 
         public async Task DeleteAsync(string postId)
         {
-            //var post = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
+            var post = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
 
-            //var entry = await context.PostLikers.FirstOrDefaultAsync(x => x.PostId.ToString() == postId);
-            //if (entry != null)
-            //{
-            //    context.PostLikers.Remove(entry);
-            //}
+            var entry = await context.PostLikers.Where(x => x.PostId.ToString() == postId)
+                .ToListAsync();
 
-            //context.Posts.Remove(post);
-            //await context.SaveChangesAsync();
+            foreach (var item in entry)
+            {
+                context.PostLikers.Remove(item);
+            }
+
+            context.Posts.Remove(post);
+            await context.SaveChangesAsync();
         }
 
         public async Task EditAsync(PostFormServiceModel model, string postId)
@@ -63,7 +65,24 @@ namespace BeSocial.Services.Post
         public async Task<bool> ExistsAsync(string id)
             => await context.Posts.AnyAsync(x => x.Id.ToString() == id);
 
-        public PostQueryServiceModel GetAllPostsAsync(string category = null,
+        public async Task<IEnumerable<PostCommentServiceModel>> GetAllCommentsFromPostAsync(string postId)
+        {
+            var comments = await context.Comments
+                .Where(x => x.PostId.ToString() == postId)
+                .Select(x => new PostCommentServiceModel()
+                {
+                    Id = x.Id,
+                    UserFullName = $"{x.User.FirstName} {x.User.LastName}",
+                    Description = x.Description,
+                    PostTitle = x.Post.Title,
+                    PostId = x.PostId.ToString()
+                })
+                .ToListAsync();
+
+            return comments;
+        }
+
+        public async Task<PostQueryServiceModel> GetAllPostsAsync(string category = null,
                                                                             string searchTerm = null,
                                                                             PostSorting sorting = PostSorting.Newest,
                                                                             int currentPage = 1,
@@ -101,6 +120,12 @@ namespace BeSocial.Services.Post
                     x.CreatedOn,
                     x.Category.Name
                 )).ToList();
+
+            foreach (var post in posts)
+            {
+                var comments = await GetAllCommentsFromPostAsync(post.Id);
+                post.Comments = comments;
+            }
 
 
             var totalPosts = postsQuery.Count();
@@ -154,7 +179,7 @@ namespace BeSocial.Services.Post
         public async Task<bool> LikerExistsOnPostAsync(string userId, string postId)
             => await context.PostLikers.AnyAsync(x => x.LikerId.ToString() == userId && x.PostId.ToString() == postId);
 
-        public async Task<PostServiceModel> PostById(string postId)
+        public async Task<PostServiceModel> PostByIdAsync(string postId)
         {
             var postToFind = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
 
@@ -173,6 +198,31 @@ namespace BeSocial.Services.Post
             {
                 model.Group = postToFind.Group.Name;
             }
+
+            return model;
+        }
+
+        public async Task CreateComment(PostCommentServiceModel model, string userId, string postId)
+        {
+
+            var post = new BeSocial.Data.Models.Comment()
+            {
+                Description = model.Description,
+                UserId = Guid.Parse(userId),
+                PostId = Guid.Parse(postId)
+            };
+
+            await context.Comments.AddAsync(post);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<PostCommentServiceModel> SetPostTitleToComment(string postId)
+        {
+            var postToFind = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
+
+            var model = new PostCommentServiceModel();
+
+            model.PostTitle = postToFind.Title;
 
             return model;
         }

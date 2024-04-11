@@ -27,7 +27,7 @@ namespace BeSocial.Web.Controllers
 
             //User.GetById();
 
-            var queryResult = postService.GetAllPostsAsync(
+            var queryResult = await postService.GetAllPostsAsync(
                 query.Category,
                 query.SearchTerm,
                 query.Sorting,
@@ -120,7 +120,7 @@ namespace BeSocial.Web.Controllers
                 return Unauthorized();
             }
 
-            var post = await postService.PostById(id);
+            var post = await postService.PostByIdAsync(id);
 
             return View(post);
         }
@@ -139,6 +139,35 @@ namespace BeSocial.Web.Controllers
             }
 
             await postService.DeleteAsync(id);
+
+            return RedirectToAction(nameof(All));
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> AddComment(string id)
+        {
+            if (!await postService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var model = await postService.SetPostTitleToComment(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(PostCommentServiceModel model, string id)
+        {
+            if (!await postService.ExistsAsync(id))
+            {
+                return BadRequest();
+            }
+
+            string userId = User.GetById();
+
+            await postService.CreateComment(model, userId, id);
 
             return RedirectToAction(nameof(All));
         }
