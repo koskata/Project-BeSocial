@@ -2,6 +2,7 @@
 using BeSocial.Web.Infrastructure;
 using BeSocial.Web.ViewModels.Post;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static BeSocial.Common.ErrorMessages;
@@ -43,10 +44,15 @@ namespace BeSocial.Web.Controllers
             return View(query);
         }
 
-
+        [Authorize]
         public async Task<IActionResult> Like(string postId)
         {
             string userId = User.GetById();
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Register", "Identity", "Account");
+            }
 
             if (await postService.LikerExistsOnPostAsync(userId, postId))
             {
@@ -58,6 +64,7 @@ namespace BeSocial.Web.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -107,6 +114,7 @@ namespace BeSocial.Web.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
@@ -143,7 +151,7 @@ namespace BeSocial.Web.Controllers
             return RedirectToAction(nameof(All));
         }
 
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> AddComment(string id)
         {
