@@ -6,7 +6,7 @@ namespace BeSocial.Web.ViewModels.Post
     public class PostAllViewModel
     {
         public PostAllViewModel(string id, string title, string description, 
-            int likes, DateTime createdOn, string category)
+            int likes, DateTime createdOn, string category, string organiser)
         {
             Id = id;
             Title = title;
@@ -14,6 +14,7 @@ namespace BeSocial.Web.ViewModels.Post
             Likes = likes;
             CreatedOn = createdOn.ToString(DateFormat);
             Category = category;
+            OrganiserFullName = organiser;
             Comments = new List<PostCommentServiceModel>();
         }
 
@@ -35,6 +36,9 @@ namespace BeSocial.Web.ViewModels.Post
 
         [Required]
         public string OrganiserId { get; set; } = string.Empty;
+
+        [Required]
+        public string OrganiserFullName { get; set; } = null!;
 
         [Required]
         public string Category { get; set; } = string.Empty;
