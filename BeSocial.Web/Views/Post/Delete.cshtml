@@ -1,7 +1,7 @@
 ﻿@model PostServiceModel
 
 @{
-    ViewBag.Title = "Delete House";
+    ViewBag.Title = "Delete Post";
 }
 
 <style>
@@ -20,25 +20,25 @@
         <div class="col-md-12 text-center backDel">
             <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control"/>
+                <input asp-for="Title" class="form-control" disabled readonly/>
             </div>
             <div class="form-group mb-3">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control"/>
+                <input asp-for="Description" class="form-control" disabled readonly />
             </div>
             <div class="form-group mb-3">
                 <label asp-for="CreatorFullName" class="control-label"></label>
-                <input asp-for="CreatorFullName" class="form-control"/>
+                <input asp-for="CreatorFullName" class="form-control" disabled readonly />
             </div>
             <div class="form-group mb-3">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control"/>
+                <input asp-for="Category" class="form-control" disabled readonly />
             </div>
             @if (@Model.Group != null)
             {
                 <div class="form-group mb-3">
                     <label asp-for="Group" class="control-label"></label>
-                    <input asp-for="Group" class="form-control"/>
+                    <input asp-for="Group" class="form-control" disabled="disabled" />
                 </div>
             }
             <div class="form-group mt-3">

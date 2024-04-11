@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PostCommentServiceModel>
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="exampleModalLabel">Title</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                @foreach (var comment in @Model)
+                {
+                    <div class="p-2 com">
+                        <h5>@comment.UserFullName</h5>
+                        <hr></hr>
+                        <p>@comment.Description</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -6,18 +6,25 @@
     .sport {
         color: #009F4F;
     }
+
     .fun {
         color: #FF8256;
     }
+
     .life {
         color: #4DAABC;
     }
+
     .music {
         color: #B41EB2;
     }
 
     .likes {
         border: 2px solid black;
+    }
+
+    .com {
+        background-color: #DADADA;
     }
 </style>
 
@@ -65,16 +72,48 @@
                    class="btn btn-danger">Delete</a>
             </div>
         }
-        
+
     </div>
 
-    <div class="card-body text-center">
-        <h5 class="card-title">@Model.Title</h5>
-        <p class="card-text">@Model.Description</p>
-        <a href="#" class="btn btn-outline-info">Comments Section</a>
+    <div>
+        <div class="card-body text-center">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Description</p>
+            <button type="button" id="openModalButton" class="btn btn-outline-info open-modal-button" data-postid="@Model.Id">Comments Section</button>
+            @* -------------------------- *@
+            <span id="modalContainer"></span>
+            @* -------------------------- *@
+            <a asp-controller="Post" asp-action="AddComment" asp-route-id="@Model.Id" type="button" class="btn btn-info">Add Comment</a>
+        </div>
     </div>
     <div class="card-footer text-body-secondary d-flex justify-content-between">
         <a asp-controller="Post" asp-action="Like" asp-route-postId="@Model.Id"><button class="btn likes">@Model.Likes Likes</button></a>
         <span class="date">@Model.CreatedOn</span>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to load modal content
+        function loadModalContent(postId) {
+            // Load the modal content using AJAX
+            $.get('/Home/ModalContent', { postId: postId }, function (data) {
+                $('#modalContainer').html(data);
+                // Show the modal after loading content
+                $('#myModal').modal('show');
+            });
+        }
+
+        // Attach click event handler to the button
+        $('.open-modal-button').click(function (evt) {
+            evt.stopImmediatePropagation();
+            var postId = $(this).data('postid'); // Get the postId from data attribute
+            loadModalContent(postId);
+        });
+    });
+</script>

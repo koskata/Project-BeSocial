@@ -1,0 +1,30 @@
+﻿@model PostCommentServiceModel
+
+@{
+    ViewBag.Title = "Add Comment";
+}
+
+<h2 class="text-center mt-4">@ViewBag.Title</h2>
+<hr />
+
+<h3 class="text-center mb-4">@Model.PostTitle</h3>
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Description">Post your comment</label>
+                <input asp-for="Description" class="form-control mt-1" placeholder="Comment...">
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Post" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
