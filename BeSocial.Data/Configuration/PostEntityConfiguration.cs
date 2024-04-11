@@ -28,7 +28,7 @@ namespace BeSocial.Data.Configuration
                     Title = "Joke that I heard from my friend",
                     Description = "Why did the tomato turn red? Because it saw the salad dressing!",
                     Likes = 0,
-                    CreatedOn = new DateTime(2024, 3, 23),
+                    CreatedOn = new DateTime(2024, 3, 23, 16, 25, 56),
                     CreatorId = Guid.Parse("b744c1d2-71a0-42a9-af63-836846a0fa40"),
                     CategoryId = 1
                 },
@@ -38,7 +38,7 @@ namespace BeSocial.Data.Configuration
                     Title = "Semi-Final Champions League",
                     Description = "The semi-final in champions league will be: Real Madrid vs Manchester City. The match is going to be very interesting!",
                     Likes = 0,
-                    CreatedOn = new DateTime(2024, 4, 7),
+                    CreatedOn = new DateTime(2024, 4, 7, 12, 37, 12),
                     CreatorId = Guid.Parse("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
                     CategoryId = 3
                 },
@@ -48,7 +48,7 @@ namespace BeSocial.Data.Configuration
                     Title = "One day in my life",
                     Description = "Today I woke up and went to the gym. Then I went home and worked from home a bit. At the end of the day, we sat down to dinner with my family.",
                     Likes = 0,
-                    CreatedOn = new DateTime(2024, 4, 3),
+                    CreatedOn = new DateTime(2024, 4, 3, 10, 16, 34),
                     CreatorId = Guid.Parse("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
                     CategoryId = 2
                 },
