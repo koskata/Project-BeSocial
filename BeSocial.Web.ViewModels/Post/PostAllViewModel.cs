@@ -14,6 +14,7 @@ namespace BeSocial.Web.ViewModels.Post
             Likes = likes;
             CreatedOn = createdOn.ToString(DateFormat);
             Category = category;
+            Comments = new List<PostCommentServiceModel>();
         }
 
         public string Id { get; set; } = null!;
@@ -37,5 +38,7 @@ namespace BeSocial.Web.ViewModels.Post
 
         [Required]
         public string Category { get; set; } = string.Empty;
+
+        public IEnumerable<PostCommentServiceModel> Comments { get; set; }
     }
 }
