@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 
 using BeSocial.Data;
+using BeSocial.Services.Interfaces;
 using BeSocial.Web.ViewModels.Post;
 
 using Microsoft.AspNetCore.Mvc;
@@ -10,31 +11,27 @@ namespace BeSocial.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BeSocialDbContext context;
+        private readonly IPostService postService;
 
-        public HomeController(BeSocialDbContext _context)
+        public HomeController(IPostService _postService)
         {
-            context = _context;
+            postService = _postService;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult ModalContent(string postId)
+        public async Task<IActionResult> ModalContent(string postId)
         {
             //var model = context.Posts.FirstOrDefault(x => x.Id.ToString() == postId);
+            if (postId == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
-            var comments = context.Comments
-                .Where(x => x.PostId.ToString() == postId)
-                .Select(x => new PostCommentServiceModel()
-                {
-                    Id = x.Id,
-                    UserFullName = $"{x.User.FirstName} {x.User.LastName}",
-                    Description = x.Description,
-                    PostTitle = x.Post.Title,
-                    PostId = x.PostId.ToString()
-                }).ToList();
+
+            var comments = await postService.GetAllCommentsFromPostAsync(postId);
 
             return PartialView("~/Views/Shared/_ModalContent.cshtml", comments);
         }

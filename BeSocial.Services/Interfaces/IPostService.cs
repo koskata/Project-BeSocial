@@ -43,5 +43,6 @@ namespace BeSocial.Services.Interfaces
         Task CreateComment(PostCommentServiceModel model, string userId, string postId);
 
         Task<PostCommentServiceModel> SetPostTitleToComment(string postId);
+
     }
 }
