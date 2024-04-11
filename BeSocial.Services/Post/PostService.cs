@@ -118,7 +118,8 @@ namespace BeSocial.Services.Post
                     x.Description,
                     x.Likes,
                     x.CreatedOn,
-                    x.Category.Name
+                    x.Category.Name,
+                    $"{x.Creator.FirstName} {x.Creator.LastName}"
                 )).ToList();
 
             foreach (var post in posts)
@@ -226,5 +227,6 @@ namespace BeSocial.Services.Post
 
             return model;
         }
+
     }
 }
