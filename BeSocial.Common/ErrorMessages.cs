@@ -8,5 +8,6 @@
         //---------
 
         public const string CategoryDoesNotExist = "Category does not exist.";
+        public const string UserWithSameEmail = "Premium user with same email exist already!";
     }
 }
