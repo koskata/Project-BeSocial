@@ -13,6 +13,7 @@ namespace BeSocial.Web.ViewModels.Post
 
         public string Description { get; set; } = null!;
 
+        [Display(Name = "Creator")]
         public string CreatorFullName { get; set; } = null!;
 
         public string Category { get; set; } = null!;

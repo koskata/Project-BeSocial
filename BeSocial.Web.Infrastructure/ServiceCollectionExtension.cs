@@ -67,6 +67,11 @@ namespace BeSocial.Web.Infrastructure
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<BeSocialDbContext>();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Lockout.AllowedForNewUsers = false;
+            });
+
             return services;
         }
     }

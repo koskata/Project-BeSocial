@@ -20,10 +20,12 @@ namespace BeSocial.Web.ViewModels.Post
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = LengthErrorMessage)]
         public string Description { get; set; } = string.Empty;
 
+        [Display(Name = "Category")]
         [Required(ErrorMessage = RequiredMessage)]
         public int CategoryId { get; set; }
 
-        //public string? GroupId { get; set; }
+        [Display(Name = "Group")]
+        public string? GroupName { get; set; }
 
         public IEnumerable<PostCategoryServiceModel> Categories { get; set; }
     }
