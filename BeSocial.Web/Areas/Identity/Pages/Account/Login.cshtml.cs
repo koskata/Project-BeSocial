@@ -1,27 +1,26 @@
 ﻿#nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+
+using BeSocial.Data;
+using BeSocial.Data.Models;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using BeSocial.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeSocial.Web.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public LoginModel(SignInManager<ApplicationUser> signInManager)
+        private readonly BeSocialDbContext context;
+        public LoginModel(SignInManager<ApplicationUser> signInManager, BeSocialDbContext _context)
         {
             _signInManager = signInManager;
+            context = _context;
         }
 
 
@@ -48,8 +47,13 @@ namespace BeSocial.Web.Areas.Identity.Pages.Account
 
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -60,6 +64,9 @@ namespace BeSocial.Web.Areas.Identity.Pages.Account
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ReturnUrl = returnUrl;
+
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
