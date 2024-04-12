@@ -19,7 +19,7 @@ namespace BeSocial.Web
             builder.Services.AddApplicationDbContext(builder.Configuration);
             //Add Identity to the app
             builder.Services.AddApplicationIdentity(builder.Configuration);
-            
+
             builder.Services.AddControllersWithViews();
 
             //Add Services to the app
@@ -54,10 +54,10 @@ namespace BeSocial.Web
                     name: "Areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
+                app.MapDefaultControllerRoute();
+                app.MapRazorPages();
             });
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
 
             await app.CreateAdminRoleAsync();
 
