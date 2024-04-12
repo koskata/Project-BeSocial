@@ -20,10 +20,29 @@ namespace BeSocial.Services.PremiumUser
             context = _context;
         }
 
+        public async Task CreatePremiumUserAsync(string userId, string firstName, string lastName, string description)
+        {
+            var premium = new BeSocial.Data.Models.PremiumUser()
+            { 
+                ApplicationUserId = Guid.Parse(userId),
+                FirstName = firstName,
+                LastName = lastName,
+                Description = description
+            };
+
+            await context.PremiumUsers.AddAsync(premium);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<bool> ExistByIdAsync(string userId)
             => await context.PremiumUsers.AnyAsync(x => x.ApplicationUserId.ToString() == userId);
 
         public async Task<int> GetPremiumUserId(string userId)
             => (await context.PremiumUsers.FirstOrDefaultAsync(x => x.ApplicationUserId.ToString() == userId)).Id;
+
+        public async Task<bool> PremiumUserWithUserIdExistsAsync(string userId)
+            => await context.PremiumUsers.AnyAsync(x => x.ApplicationUserId.ToString() == userId);
+
+
     }
 }
