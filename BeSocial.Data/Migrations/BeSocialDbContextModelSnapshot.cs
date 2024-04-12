@@ -104,7 +104,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2fae81d0-26cc-4a15-a8de-026fd5b3689c",
+                            ConcurrencyStamp = "b4d7791d-fc99-41c0-a21c-3faf037dae1f",
                             Email = "georgiivanov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Georgi",
@@ -112,9 +112,9 @@ namespace BeSocial.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GEORGIIVANOV@GMAIL.COM",
                             NormalizedUserName = "GEORGIIVANOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGfPfRz7C91/b/oxT9fDLMi/IyXBiwszmiHKZyANzJqvANNXSlco1I40vPDzMvf1Cg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDPkSCCDsAlQU+Susd48LG8KwzWr7PmTmtDrcRQL+qKjEM497oUHtGvBPNZ20eLl8g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "92ec64dc-deed-4c10-b96e-b7dcd02ea143",
+                            SecurityStamp = "c04be0bf-e202-4a1d-a665-263bf630c4bc",
                             TwoFactorEnabled = false,
                             UserName = "georgiivanov@gmail.com"
                         },
@@ -122,7 +122,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "50b90bc9-0a2c-4318-89ac-d3e65f3f04e1",
+                            ConcurrencyStamp = "e2b70ac8-2ce5-4e7e-9792-9527cb8ab73e",
                             Email = "dimitarpavlov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Dimitar",
@@ -130,9 +130,9 @@ namespace BeSocial.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITARPAVLOV@GMAIL.COM",
                             NormalizedUserName = "DIMITARPAVLOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIGqOuBDAzCmyN06ZHHcJ1OnkGWVE/U/6v/GavQrN+KOuJq1u9qKs+lqEJthbmzJYA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFxQKABwJOKSy5/I7WOsxzlOAVEK0GZJ08PRsEgrh9TBoB+dBuUVnB+dIEto+sxvrA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f87e6ae4-949e-4f08-bb73-1111cb89d2ba",
+                            SecurityStamp = "fbeeda2e-3c6b-41a6-aca1-592c2e982ebf",
                             TwoFactorEnabled = false,
                             UserName = "dimitarpavlov@gmail.com"
                         },
@@ -140,7 +140,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("42409a8e-62ad-41ce-82be-533c18943886"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "11011c0b-d5a9-4ed1-80f5-67f81947af91",
+                            ConcurrencyStamp = "3f9bae75-813a-4679-a0c1-cda9c202b0b0",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -148,9 +148,9 @@ namespace BeSocial.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBc9bfgA8ilkZTapegAbsIjNkFCPsNM2bFsbUcyEt1muPSWuC6cPtz8+eunrgUnFcA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBBMMhvMeZbN0ZtR3uf3NEafEQ6mOLVooZ05g5LQ72ql560imEKjpJ7DQX7oyw5big==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d464a10-b5a9-4663-b891-ee51c577feb8",
+                            SecurityStamp = "270d27a1-37a3-427c-a762-36928e235d4f",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -345,7 +345,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("c0a48ee8-f260-4d8e-9f47-bd1d553b23f7"),
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2024, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2024, 3, 23, 16, 25, 56, 0, DateTimeKind.Unspecified),
                             CreatorId = new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"),
                             Description = "Why did the tomato turn red? Because it saw the salad dressing!",
                             Likes = 0,
@@ -355,7 +355,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("b32c53b2-bed3-49cb-a43f-189de2dcc6c6"),
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2024, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2024, 4, 7, 12, 37, 12, 0, DateTimeKind.Unspecified),
                             CreatorId = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
                             Description = "The semi-final in champions league will be: Real Madrid vs Manchester City. The match is going to be very interesting!",
                             Likes = 0,
@@ -365,7 +365,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("7b38ce67-125a-44b7-b13a-666e3167b20a"),
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2024, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedOn = new DateTime(2024, 4, 3, 10, 16, 34, 0, DateTimeKind.Unspecified),
                             CreatorId = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
                             Description = "Today I woke up and went to the gym. Then I went home and worked from home a bit. At the end of the day, we sat down to dinner with my family.",
                             Likes = 0,

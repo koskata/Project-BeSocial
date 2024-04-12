@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeSocial.Data.Migrations
 {
     [DbContext(typeof(BeSocialDbContext))]
-    [Migration("20240406192844_creatingDatabase")]
+    [Migration("20240411202722_creatingDatabase")]
     partial class creatingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
