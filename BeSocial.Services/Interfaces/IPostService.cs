@@ -40,9 +40,12 @@ namespace BeSocial.Services.Interfaces
 
         Task<IEnumerable<PostCommentServiceModel>> GetAllCommentsFromPostAsync(string postId);
 
-        Task CreateComment(PostCommentServiceModel model, string userId, string postId);
+        Task CreateCommentAsync(PostCommentServiceModel model, string userId, string postId);
 
-        Task<PostCommentServiceModel> SetPostTitleToComment(string postId);
+        Task<PostCommentServiceModel> SetPostTitleToCommentAsync(string postId);
 
+        Task CreatePostAsync(PostFormServiceModel model, string userId);
+
+        Task<IEnumerable<PostAllViewModel>> GetAllLikedPosts(string userId);
     }
 }

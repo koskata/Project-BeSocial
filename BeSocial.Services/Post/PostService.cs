@@ -146,7 +146,8 @@ namespace BeSocial.Services.Post
                 {
                     Title = x.Title,
                     Description = x.Description,
-                    CategoryId = x.CategoryId
+                    CategoryId = x.CategoryId,
+                    GroupName = x.Group.Name
                 }).FirstOrDefaultAsync();
 
             if (model != null)
@@ -203,7 +204,7 @@ namespace BeSocial.Services.Post
             return model;
         }
 
-        public async Task CreateComment(PostCommentServiceModel model, string userId, string postId)
+        public async Task CreateCommentAsync(PostCommentServiceModel model, string userId, string postId)
         {
 
             var post = new BeSocial.Data.Models.Comment()
@@ -217,7 +218,7 @@ namespace BeSocial.Services.Post
             await context.SaveChangesAsync();
         }
 
-        public async Task<PostCommentServiceModel> SetPostTitleToComment(string postId)
+        public async Task<PostCommentServiceModel> SetPostTitleToCommentAsync(string postId)
         {
             var postToFind = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
 
@@ -228,5 +229,37 @@ namespace BeSocial.Services.Post
             return model;
         }
 
+        public async Task CreatePostAsync(PostFormServiceModel model, string userId)
+        {
+            var postToCreate = new BeSocial.Data.Models.Post()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Likes = 0,
+                CreatedOn = DateTime.Now,
+                CreatorId = Guid.Parse(userId),
+                CategoryId = model.CategoryId
+            };
+
+            await context.Posts.AddAsync(postToCreate);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<PostAllViewModel>> GetAllLikedPosts(string userId)
+        {
+            var posts = await context.PostLikers
+                .Where(x => x.LikerId.ToString() == userId)
+                .Select(x => new PostAllViewModel(
+                    x.Post.Id.ToString(),
+                    x.Post.Title,
+                    x.Post.Description,
+                    x.Post.Likes,
+                    x.Post.CreatedOn,
+                    x.Post.Category.Name,
+                    $"{x.Post.Creator.FirstName} {x.Post.Creator.LastName}"))
+                .ToListAsync();
+
+            return posts;
+        }
     }
 }

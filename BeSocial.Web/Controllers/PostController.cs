@@ -160,7 +160,7 @@ namespace BeSocial.Web.Controllers
                 return BadRequest();
             }
 
-            var model = await postService.SetPostTitleToComment(id);
+            var model = await postService.SetPostTitleToCommentAsync(id);
 
             return View(model);
         }
@@ -175,9 +175,52 @@ namespace BeSocial.Web.Controllers
 
             string userId = User.GetById();
 
-            await postService.CreateComment(model, userId, id);
+            await postService.CreateCommentAsync(model, userId, id);
 
             return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> CreatePost()
+        {
+            var model = new PostFormServiceModel();
+
+            model.Categories = await postService.AllCategoriesAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePost(PostFormServiceModel model)
+        {
+            if (await postService.CategoryExistsAsync(model.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), CategoryDoesNotExist);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await postService.AllCategoriesAsync();
+
+                return View(model);
+            }
+
+            string userId = User.GetById();
+
+            await postService.CreatePostAsync(model, userId);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LikedPosts()
+        {
+            string userId = User.GetById();
+
+            var likedPosts = await postService.GetAllLikedPosts(userId);
+
+            return View(likedPosts);
         }
     }
 }
