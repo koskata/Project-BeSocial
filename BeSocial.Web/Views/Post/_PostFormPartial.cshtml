@@ -107,7 +107,7 @@
 <script>
     $(document).ready(function () {
         function loadModalContent(postId) {
-            $.get('/Home/ModalContent', { postId: postId }, function (data) {
+            $.get('/Comment/ModalContent', { postId: postId }, function (data) {
                 $('#modalContainer').html(data);
                 $('#myModal').modal('show');
             });

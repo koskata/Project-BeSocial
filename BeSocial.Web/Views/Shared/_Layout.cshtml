@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BeSocial.Common
+<!DOCTYPE html>
 <html lang="en">
 
 
@@ -10,16 +11,39 @@
             /* background-image: url(); */
         }
 
+        .premiumText {
+            color: darkorange;
+        }
+
+        .premiumTextSpan {
+            font-size: 1.3em;
+        }
+
+        .premiumButton {
+            padding-right: 1em;
+            padding-left: 1em;
+            padding-top: 0.2em;
+            padding-bottom: 0.2em;
+            border-radius: 1em;
+        }
+
+            .premiumButton:hover {
+                background-color: #3f4040;
+                padding-right: 0.8em;
+                padding-left: 0.8em;
+            }
+
     </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BeSocial</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BeSocial.Web.styles.css" asp-append-version="true" />
 </head>
 <body class="d-flex flex-column">
-    
+
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark box-shadow">
             <div class="container-fluid">
@@ -28,16 +52,30 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 gap-2">
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Post" asp-action="All">All Posts</a>
+                            <div class="btn-group">
+                                <button class="nav-link btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Post</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Post" asp-action="All">All Posts</a></li>
+                                    <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Post" asp-action="CreatePost">Create Post</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Post" asp-action="LikedPosts">Your liked posts</a></li>
+                                </ul>
+                            </div>
+
                         </li>
                     </ul>
-                    
-                    <partial name="_LoginPartial" />
+
+                    <a class="me-5 text-white text-decoration-none premiumButton" asp-controller="Premium" asp-action="Become">Become a <span class="premiumTextSpan"><i class="premiumText fw-bold text">PREMIUM</i></span></a>
+
+                    <span class="ms-4">
+                        <partial name="_LoginPartial" />
+                    </span>
+
 
                 </div>
             </div>
@@ -54,7 +92,7 @@
     }
     else if (ViewData["Title"] == "All Posts")
     {
-        <div class="container w-50">
+        <div class="container w-75">
             <main role="main">
                 @RenderBody()
             </main>
@@ -62,13 +100,13 @@
     }
     else
     {
-        <div class="container">
+        <div class="container w-75">
             <main role="main">
                 @RenderBody()
             </main>
         </div>
     }
-    
+
 
 
 
@@ -79,7 +117,15 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/toastr/toastr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    @if (TempData[MessageConstants.UserMessageSuccess] != null)
+    {
+        <script defer>
+            message.showSuccess('@TempData[MessageConstants.UserMessageSuccess]');
+        </script>
+    }
 </body>
 </html>

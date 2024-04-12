@@ -2,18 +2,20 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserService userService
+@inject IPremiumUserService premiumService
+
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            @if (await userService.UserFullName(User.GetById()) is var fullName && fullName != null)
+            @if (await userService.UserFullName(User.GetById()) is var fullName && fullName != null && await premiumService.PremiumUserWithUserIdExistsAsync(User.GetById()))
             {
-                <a class="nav-link text-white">Hello @fullName!</a>
+                <a class="nav-link text-white">Hello, <i class="premiumText">@fullName!</i></a>
             }
-            else
+            else if (await userService.UserFullName(User.GetById()) is var fullName2 && fullName != null && await premiumService.PremiumUserWithUserIdExistsAsync(User.GetById()) == false)
             {
-                <a class="nav-link text-white">Hello @User.Identity?.Name!</a>
+                <a class="nav-link text-white">Hello, <i>@fullName2</i>!</a>
             }
         </li>
         <li class="nav-item">
