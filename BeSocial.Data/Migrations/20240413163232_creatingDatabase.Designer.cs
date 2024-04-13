@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeSocial.Data.Migrations
 {
     [DbContext(typeof(BeSocialDbContext))]
-    [Migration("20240411202750_seedData")]
-    partial class seedData
+    [Migration("20240413163232_creatingDatabase")]
+    partial class creatingDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,62 +100,6 @@ namespace BeSocial.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b4d7791d-fc99-41c0-a21c-3faf037dae1f",
-                            Email = "georgiivanov@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Georgi",
-                            LastName = "Ivanov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "GEORGIIVANOV@GMAIL.COM",
-                            NormalizedUserName = "GEORGIIVANOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDPkSCCDsAlQU+Susd48LG8KwzWr7PmTmtDrcRQL+qKjEM497oUHtGvBPNZ20eLl8g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c04be0bf-e202-4a1d-a665-263bf630c4bc",
-                            TwoFactorEnabled = false,
-                            UserName = "georgiivanov@gmail.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e2b70ac8-2ce5-4e7e-9792-9527cb8ab73e",
-                            Email = "dimitarpavlov@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Dimitar",
-                            LastName = "Pavlov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DIMITARPAVLOV@GMAIL.COM",
-                            NormalizedUserName = "DIMITARPAVLOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFxQKABwJOKSy5/I7WOsxzlOAVEK0GZJ08PRsEgrh9TBoB+dBuUVnB+dIEto+sxvrA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fbeeda2e-3c6b-41a6-aca1-592c2e982ebf",
-                            TwoFactorEnabled = false,
-                            UserName = "dimitarpavlov@gmail.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("42409a8e-62ad-41ce-82be-533c18943886"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3f9bae75-813a-4679-a0c1-cda9c202b0b0",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "Adminov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "admin@gmail.com",
-                            NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBBMMhvMeZbN0ZtR3uf3NEafEQ6mOLVooZ05g5LQ72ql560imEKjpJ7DQX7oyw5big==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "270d27a1-37a3-427c-a762-36928e235d4f",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("BeSocial.Data.Models.Category", b =>
@@ -176,33 +120,6 @@ namespace BeSocial.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Funny"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Lifestyle"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Sport"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Music"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Other"
-                        });
                 });
 
             modelBuilder.Entity("BeSocial.Data.Models.Comment", b =>
@@ -265,15 +182,6 @@ namespace BeSocial.Data.Migrations
                     b.HasIndex("CreatorId");
 
                     b.ToTable("Groups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("e4d30dd1-31f7-4a05-9f45-9b40f8bad5eb"),
-                            CategoryId = 3,
-                            CreatorId = 1,
-                            Name = "Champions League Matches"
-                        });
                 });
 
             modelBuilder.Entity("BeSocial.Data.Models.GroupParticipant", b =>
@@ -341,38 +249,6 @@ namespace BeSocial.Data.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Posts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c0a48ee8-f260-4d8e-9f47-bd1d553b23f7"),
-                            CategoryId = 1,
-                            CreatedOn = new DateTime(2024, 3, 23, 16, 25, 56, 0, DateTimeKind.Unspecified),
-                            CreatorId = new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"),
-                            Description = "Why did the tomato turn red? Because it saw the salad dressing!",
-                            Likes = 0,
-                            Title = "Joke that I heard from my friend"
-                        },
-                        new
-                        {
-                            Id = new Guid("b32c53b2-bed3-49cb-a43f-189de2dcc6c6"),
-                            CategoryId = 3,
-                            CreatedOn = new DateTime(2024, 4, 7, 12, 37, 12, 0, DateTimeKind.Unspecified),
-                            CreatorId = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
-                            Description = "The semi-final in champions league will be: Real Madrid vs Manchester City. The match is going to be very interesting!",
-                            Likes = 0,
-                            Title = "Semi-Final Champions League"
-                        },
-                        new
-                        {
-                            Id = new Guid("7b38ce67-125a-44b7-b13a-666e3167b20a"),
-                            CategoryId = 2,
-                            CreatedOn = new DateTime(2024, 4, 3, 10, 16, 34, 0, DateTimeKind.Unspecified),
-                            CreatorId = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
-                            Description = "Today I woke up and went to the gym. Then I went home and worked from home a bit. At the end of the day, we sat down to dinner with my family.",
-                            Likes = 0,
-                            Title = "One day in my life"
-                        });
                 });
 
             modelBuilder.Entity("BeSocial.Data.Models.PostLiker", b =>
@@ -428,24 +304,6 @@ namespace BeSocial.Data.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("PremiumUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ApplicationUserId = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
-                            Description = "Hello, my name is Dimitar. I am 25 years old from Sofia. I would love it if you follow me for more content from me.",
-                            FirstName = "Dimitar",
-                            LastName = "Pavlov"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ApplicationUserId = new Guid("42409a8e-62ad-41ce-82be-533c18943886"),
-                            Description = "The best admin. You can't touch me!",
-                            FirstName = "Admin",
-                            LastName = "Adminov"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>

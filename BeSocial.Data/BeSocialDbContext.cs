@@ -55,6 +55,7 @@ namespace BeSocial.Data
             builder.ApplyConfiguration(new GroupEntityConfiguration());
             builder.ApplyConfiguration(new PostEntityConfiguration());
             builder.ApplyConfiguration(new PremiumUserEntityConfiguration());
+            builder.ApplyConfiguration(new GroupParticipantEntityConfiguration());
 
             base.OnModelCreating(builder);
         }
