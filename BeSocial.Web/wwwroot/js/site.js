@@ -3,7 +3,7 @@
         "closeButton": true,
         "debug": false,
         "newestOnTop": false,
-        "progressBar": false,
+        "progressBar": true,
         "positionClass": "toast-top-right",
         "preventDuplicates": false,
         "onclick": null,
@@ -20,7 +20,17 @@
         toastr["success"](message);
     }
 
+    var showWarning = function (message) {
+        toastr["warning"](message);
+    }
+
+    var showError = function (message) {
+        toastr["error"](message);
+    }
+
     return {
-        showSuccess
+        showSuccess,
+        showWarning,
+        showError
     }
 }();
