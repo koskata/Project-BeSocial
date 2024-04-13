@@ -24,11 +24,6 @@ namespace BeSocial.Services.User
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Id.ToString() == userId);
 
-            if (string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName))
-            {
-                return null;
-            }
-
             return user.FirstName + " " + user.LastName;
         }
     }
