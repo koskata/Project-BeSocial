@@ -1,5 +1,6 @@
 ﻿@model PostAllViewModel
 @inject IPostService postService
+@inject IPremiumUserService premiumUserService
 
 <style>
     .sport {
@@ -27,6 +28,10 @@
         border-radius: 0.3em;
     }
 
+    .descrPost {
+        font-size: 1.2em;
+    }
+
 </style>
 
 <div class="card my-3 myCard">
@@ -35,33 +40,33 @@
 
         @if (Model.Category == "Funny")
         {
-            <span class="fw-bolder fun">
+            <h4 class="fw-bolder fun">
                 @Model.Category
-            </span>
+            </h4>
         }
         else if (Model.Category == "Sport")
         {
-            <span class="fw-bolder sport">
+            <h4 class="fw-bolder sport">
                 @Model.Category
-            </span>
+            </h4>
         }
         else if (Model.Category == "Lifestyle")
         {
-            <span class="fw-bolder life">
+            <h4 class="fw-bolder life">
                 @Model.Category
-            </span>
+            </h4>
         }
         else if (Model.Category == "Music")
         {
-            <span class="fw-bolder music">
+            <h4 class="fw-bolder music">
                 @Model.Category
-            </span>
+            </h4>
         }
         else
         {
-            <span class="fw-bolder">
+            <h4 class="fw-bolder">
                 @Model.Category
-            </span>
+            </h4>
         }
 
         @if (await postService.HasUserWithIdAsync(@Model.Id, User.GetById()))
@@ -78,8 +83,8 @@
 
     <div>
         <div class="card-body text-center">
-            <h5 class="card-title">@Model.Title</h5>
-            <p class="card-text">@Model.Description</p>
+            <h3 class="card-title">@Model.Title</h3>
+            <p class="card-text pb-1 descrPost">@Model.Description</p>
             <button type="button" id="openModalButton" class="btn btn-outline-info open-modal-button" data-postid="@Model.Id">Comments Section</button>
             @* -------------------------- *@
             <span id="modalContainer"></span>
@@ -95,6 +100,7 @@
 
         <div>
             <span class="creator me-3"><i><b>@Model.OrganiserFullName</b></i></span>
+
             <span class="date">@Model.CreatedOn</span>
         </div>
     </div>

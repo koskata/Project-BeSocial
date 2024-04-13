@@ -9,6 +9,12 @@
     }
 }
 
+<style>
+    .descrComment {
+        font-size: 1.2em;
+        }
+</style>
+
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -29,7 +35,7 @@
                         <div class="p-2 mb-2 com">
                             <h5>@comment.UserFullName</h5>
                             <hr></hr>
-                            <p>@comment.Description</p>
+                            <p class="descrComment">@comment.Description</p>
                         </div>
                     }
                 }

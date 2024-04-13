@@ -1,0 +1,35 @@
+﻿@model PremiumUserAccountViewModel
+
+@{
+    ViewBag.Title = "Account";
+}
+
+<style>
+    .person {
+        max-width: 15%;
+        border: 1px solid black;
+        border-radius: 2em;
+    }
+</style>
+
+<div class="row text-center">
+    <div class="boxForImage mt-5">
+        <img src="https://www.pngitem.com/pimgs/m/524-5246388_anonymous-user-hd-png-download.png" alt="Alternate Text" class="person"/>
+    </div>
+    <div class="mt-5">
+        <form method="post">
+            <div class="form-group mb-3">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" placeholder="@Model.FirstName" disabled readonly>
+            </div>
+             <div class="form-group mb-3">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" placeholder="@Model.LastName" disabled readonly>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control" placeholder="@Model.Description" disabled readonly>
+            </div>
+        </form>
+    </div>
+</div>
