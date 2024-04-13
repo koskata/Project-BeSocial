@@ -20,13 +20,6 @@ namespace BeSocial.Web.Controllers
 
         public async Task<IActionResult> All([FromQuery] AllPostsQueryModel query)
         {
-            //if (User?.Identity?.IsAuthenticated == false && User?.Identity == null)
-            //{
-            //    return RedirectToAction();
-            //}
-
-
-            //User.GetById();
 
             var queryResult = await postService.GetAllPostsAsync(
                 query.Category,
