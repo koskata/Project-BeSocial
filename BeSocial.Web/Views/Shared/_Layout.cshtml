@@ -1,4 +1,5 @@
 ﻿@using BeSocial.Common
+@inject IPremiumUserService premiumService
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,9 +79,21 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <div class="btn-group">
+                                <button class="nav-link btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">My</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Post" asp-action="My">My Posts</a></li>
+                                    @if (await premiumService.ExistByIdAsync(User.GetById()))
+                                    {
+                                        <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Group" asp-action="My">My Groups</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
 
-                    <a class="me-5 text-white text-decoration-none premiumButton" asp-controller="Premium" asp-action="Become">Become a <span class="premiumTextSpan"><i class="premiumText fw-bold">PREMIUM</i></span></a>
+                    <a class="me-5 text-white text-decoration-none premiumButton" asp-area="" asp-controller="Premium" asp-action="Become">Become a <span class="premiumTextSpan"><i class="premiumText fw-bold">PREMIUM</i></span></a>
 
                     <span class="ms-4">
                         <partial name="_LoginPartial" />
@@ -95,14 +108,6 @@
     @if (ViewData["Title"] == "Home Page")
     {
         <div class="container">
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-    }
-    else if (ViewData["Title"] == "All Posts")
-    {
-        <div class="container w-75">
             <main role="main">
                 @RenderBody()
             </main>
