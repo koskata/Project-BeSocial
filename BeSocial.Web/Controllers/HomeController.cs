@@ -2,6 +2,7 @@
 
 using BeSocial.Data;
 using BeSocial.Services.Interfaces;
+using BeSocial.Web.Infrastructure;
 using BeSocial.Web.ViewModels.Post;
 
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +17,11 @@ namespace BeSocial.Web.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
             return View();
         }
 
