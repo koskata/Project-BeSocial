@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static BeSocial.Common.ErrorMessages;
+using static BeSocial.Common.MessageConstants;
 
 namespace BeSocial.Web.Controllers
 {
@@ -49,12 +50,14 @@ namespace BeSocial.Web.Controllers
 
             if (await postService.LikerExistsOnPostAsync(userId, postId))
             {
+                TempData[UserMessageError] = "The user has already liked this post";
+
                 return RedirectToAction(nameof(All));
             }
 
             await postService.LikePostAsync(postId, userId);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(LikedPosts));
         }
 
         [Authorize]
@@ -66,7 +69,8 @@ namespace BeSocial.Web.Controllers
                 return BadRequest();
             }
 
-            if (await postService.HasUserWithIdAsync(id, this.User.GetById()) == false)
+            if (await postService.HasUserWithIdAsync(id, this.User.GetById()) == false
+                && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -85,7 +89,8 @@ namespace BeSocial.Web.Controllers
                 return this.View();
             }
 
-            if (await postService.HasUserWithIdAsync(id, this.User.GetById()) == false)
+            if (await postService.HasUserWithIdAsync(id, this.User.GetById()) == false
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -104,6 +109,8 @@ namespace BeSocial.Web.Controllers
 
             await postService.EditAsync(model, id);
 
+            TempData[UserMessageSuccess] = "Successfully edited post!";
+
             return RedirectToAction(nameof(All));
         }
 
@@ -116,7 +123,8 @@ namespace BeSocial.Web.Controllers
                 return BadRequest();
             }
 
-            if (!await postService.HasUserWithIdAsync(id, User.GetById()))
+            if (!await postService.HasUserWithIdAsync(id, User.GetById())
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -134,12 +142,15 @@ namespace BeSocial.Web.Controllers
                 return BadRequest();
             }
 
-            if (!await postService.HasUserWithIdAsync(id, User.GetById()))
+            if (!await postService.HasUserWithIdAsync(id, User.GetById())
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
 
             await postService.DeleteAsync(id);
+
+            TempData[UserMessageSuccess] = "Successfully deleted post!";
 
             return RedirectToAction(nameof(All));
         }
@@ -211,9 +222,24 @@ namespace BeSocial.Web.Controllers
         {
             string userId = User.GetById();
 
-            var likedPosts = await postService.GetAllLikedPosts(userId);
+            var likedPosts = await postService.GetAllLikedPostsAsync(userId);
 
             return View(likedPosts);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> My()
+        {
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("My", "Post", new { area = "Admin" } );
+            }
+
+            string userId = User.GetById();
+
+            var posts = await postService.GetAllMyPostsAsync(userId);
+
+            return View(posts);
         }
     }
 }

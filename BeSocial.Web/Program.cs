@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BeSocial.Data.Models;
 using BeSocial.Web.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BeSocial.Web
 {
@@ -20,7 +21,10 @@ namespace BeSocial.Web
             //Add Identity to the app
             builder.Services.AddApplicationIdentity(builder.Configuration);
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             //Add Services to the app
             builder.Services.AddApplicationServices(typeof(IPostService));

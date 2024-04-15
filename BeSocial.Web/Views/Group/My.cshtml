@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<GroupAllViewModel>
 
 @{
-    ViewData["Title"] = "Joined Groups";
+    ViewData["Title"] = "My Groups";
 }
 
 <style>
@@ -13,32 +13,23 @@
 </style>
 
 <div class="text-center mt-4 mb-4">
-    <h1>Your Joined groups</h1>
+    <h1>My groups</h1>
     <hr></hr>
 </div>
 
-@if (User.IsAdmin())
+@if (!Model.Any())
 {
     <h2 class="text-center mt-5">
-        You are the admin. You can view all of the information in all groups!
+        You have no created groups yet!
     </h2>
 }
-else
-{
-    @if (!Model.Any())
-    {
-        <h2 class="text-center mt-5">
-            You have no joined groups yet!
-        </h2>
-    }
-}
 
-@if (User.IsAdmin() == false)
-{
-    <div class="mt-4">
-        @foreach (var group in Model)
-        {
-            <partial name="_GroupFormPartial" model="@group" />
-        }
-    </div>
-}
+
+
+<div class="mt-4">
+    @foreach (var group in Model)
+    {
+        <partial name="_GroupFormPartial" model="@group" />
+    }
+</div>
+
