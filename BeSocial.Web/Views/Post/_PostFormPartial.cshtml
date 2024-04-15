@@ -1,8 +1,6 @@
 ﻿@model PostAllViewModel
 @inject IPostService postService
 @inject IPremiumUserService premiumUserService
-@inject IGroupService groupService
-
 
 <style>
     .sport {
@@ -23,12 +21,6 @@
 
     .likes {
         border: 2px solid black;
-        background-color: #AEF1FF;
-        border-radius: 0.3em;
-        padding-top: 0.3em;
-        padding-bottom: 0.3em;
-        padding-right: 0.5em;
-        padding-left: 0.5em;
     }
 
     .com {
@@ -38,23 +30,6 @@
 
     .descrPost {
         font-size: 1.2em;
-    }
-
-    .date {
-        background-color: #D0D0D0;
-        border-radius: 0.3em;
-        padding-top: 0.3em;
-        padding-bottom: 0.3em;
-        padding-right: 1em;
-        padding-left: 1em;
-    }
-
-    .groupName {
-        background-color: #ffe299;
-        border-radius: 2em;
-        padding-right: 1em;
-        padding-left: 1em;
-        border: 1px solid black;
     }
 
 </style>
@@ -94,8 +69,7 @@
             </h4>
         }
 
-        @if (await postService.HasUserWithIdAsync(@Model.Id, User.GetById())
-        || User.IsAdmin())
+        @if (await postService.HasUserWithIdAsync(@Model.Id, User.GetById()))
         {
             <div>
                 <a asp-area="" asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id"
@@ -109,64 +83,23 @@
 
     <div>
         <div class="card-body text-center">
-            <h2 class="card-title">@Model.Title</h2>
-
-            @if (@Model.GroupId == null)
-            {
-                <p class="card-text pb-1 descrPost">@Model.Description</p>
-
-                <button type="button" id="openModalButton" class="btn btn-outline-info open-modal-button" data-postid="@Model.Id">Comments Section</button>
-                @* -------------------------- *@
-                <span id="modalContainer"></span>
-                @* -------------------------- *@
-                <a asp-area="" asp-controller="Post" asp-action="AddComment" asp-route-id="@Model.Id" type="button" class="btn btn-info">Add Comment</a>
-            }
-            else if (await groupService.IsUserInGroupAsync(@Model.GroupId, User.GetById()) || User.IsAdmin())
-            {
-                @if (@Model.Group != null)
-                {
-                    <div class="groupName">
-                        <h5>Group: @Model.Group</h5>
-                    </div>
-                }
-
-                <p class="card-text pb-1 descrPost">@Model.Description</p>
-
-                <button type="button" id="openModalButton" class="btn btn-outline-info open-modal-button" data-postid="@Model.Id">Comments Section</button>
-                @* -------------------------- *@
-                <span id="modalContainer"></span>
-                @* -------------------------- *@
-                <a asp-area="" asp-controller="Post" asp-action="AddComment" asp-route-id="@Model.Id" type="button" class="btn btn-info">Add Comment</a>
-            }
-            else
-            {
-                <div>
-                    <a asp-area="" asp-controller="Group" asp-action="All" class="btn btn-outline-primary">View content in group by joining it!</a>
-                </div>
-            }
-
-
+            <h3 class="card-title">@Model.Title</h3>
+            <p class="card-text pb-1 descrPost">@Model.Description</p>
+            <button type="button" id="openModalButton" class="btn btn-outline-info open-modal-button" data-postid="@Model.Id">Comments Section</button>
+            @* -------------------------- *@
+            <span id="modalContainer"></span>
+            @* -------------------------- *@
+            <a asp-controller="Post" asp-action="AddComment" asp-route-id="@Model.Id" type="button" class="btn btn-info">Add Comment</a>
         </div>
     </div>
     <div class="card-footer text-body-secondary d-flex justify-content-between align-items-center">
 
         <div>
-            <a asp-area="" asp-controller="Post" asp-action="Like" asp-route-postId="@Model.Id"><button class="btn likes">@Model.Likes Likes</button></a>
+            <a asp-controller="Post" asp-action="Like" asp-route-postId="@Model.Id"><button class="btn likes">@Model.Likes Likes</button></a>
         </div>
 
-
-
         <div>
-            @if (await premiumUserService.ExistByIdAsync(@Model.OrganiserId))
-            {
-                <span class="creator me-3">
-                    <i class="premiumText fw-bold">@Model.OrganiserFullName</i>
-                </span>
-            }
-            else
-            {
-                <span class="creator me-3"><i><b>@Model.OrganiserFullName</b></i></span>
-            }
+            <span class="creator me-3"><i><b>@Model.OrganiserFullName</b></i></span>
 
             <span class="date">@Model.CreatedOn</span>
         </div>
@@ -193,4 +126,3 @@
         });
     });
 </script>
-

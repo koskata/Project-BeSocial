@@ -47,9 +47,9 @@
         border: 1px solid black;
     }
 
-        .accountButton:hover {
-            background-color: #ffe299;
-        }
+    .accountButton:hover {
+        background-color: #ffe299;
+    }
 
 </style>
 
@@ -88,12 +88,12 @@
             </h4>
         }
 
-        @if (await groupService.HasUserWithIdAsync(Model.Id, User.GetById()) || User.IsAdmin())
+        @if (await groupService.HasUserWithIdAsync(Model.Id, User.GetById()))
         {
             <div>
                 <a asp-area="" asp-controller="Group" asp-action="Edit" asp-route-groupId="@Model.Id"
                    class="btn btn-warning">Edit</a>
-                <a asp-area="" asp-controller="Group" asp-action="Delete" asp-route-id="@Model.Id"
+                <a asp-area="" asp-controller="Group" asp-action="Delete" asp-route-groupId="@Model.Id"
                    class="btn btn-danger">Delete</a>
             </div>
         }
@@ -104,22 +104,17 @@
         <div class="card-body text-center">
             <h3 class="card-title">@Model.Name</h3>
             <p class="card-text creatorGroup premiumTextSpan">
-                <a class="accountButton btn" asp-area="" asp-controller="Group" asp-action="Account" asp-route-creatorId="@Model.CreatorId"><i class="premiumText fw-bold">@Model.Creator</i></a>
+                <a class="accountButton btn" asp-controller="Group" asp-action="Account" asp-route-creatorId="@Model.CreatorId"><i class="premiumText fw-bold">@Model.Creator</i></a>
             </p>
-            <a asp-area="" asp-controller="Group" asp-action="Show" asp-route-groupId="@Model.Id" type="button" class="btn btn-secondary">Show posts</a>
+            <a asp-controller="Group" asp-action="Show" asp-route-groupId="@Model.Id" type="button" class="btn btn-secondary me-3">Show posts</a>
             @if (await groupService.IsUserInGroupAsync(@Model.Id, User.GetById()))
             {
-                if (!User.IsAdmin())
-                {
-                    <span><a asp-area="" asp-controller="Group" asp-action="Leave" asp-route-groupId="@Model.Id" type="button" class="btn btn-danger ms-3">Leave Group</a></span>
-                }
+                <span><a asp-controller="Group" asp-action="Leave" asp-route-groupId="@Model.Id" type="button" class="btn btn-danger">Leave Group</a></span>
             }
             else
             {
-                if (!User.IsAdmin())
-                {
-                    <span><a asp-area="" asp-controller="Group" asp-action="Join" asp-route-groupId="@Model.Id" type="button" class="btn btn-success ms-3">Join Group</a></span>
-                }
+                <span><a asp-controller="Group" asp-action="Join" asp-route-groupId="@Model.Id" type="button" class="btn btn-success">Join Group</a></span>
+
             }
         </div>
     </div>

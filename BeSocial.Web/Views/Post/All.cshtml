@@ -1,6 +1,5 @@
 ﻿@* @model IEnumerable<PostAllViewModel> *@
 @model AllPostsQueryModel
-@inject IGroupService groupService
 
 
 @{
@@ -38,16 +37,12 @@
         .searchButton {
             background-color: #D0D0D0;
         }
-
-        .allPosts {
-            background-color: #c9ffd8;
-        }
     </style>
     <title></title>
 </head>
 <body>
 
-    <div class="mt-3 text-center allPosts shadow-lg">
+    <div class="mt-3 text-center">
         <h1>All posts</h1>
         <hr></hr>
     </div>
