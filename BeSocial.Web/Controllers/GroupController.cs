@@ -16,10 +16,14 @@ namespace BeSocial.Web.Controllers
     public class GroupController : Controller
     {
         private readonly IGroupService groupService;
+        private readonly IPostService postService;
+        private readonly IPremiumUserService premiumService;
 
-        public GroupController(IGroupService _groupService)
+        public GroupController(IGroupService _groupService, IPostService _postService, IPremiumUserService _premiumService)
         {
             groupService = _groupService;
+            postService = _postService;
+            premiumService = _premiumService;
         }
 
         public async Task<IActionResult> All([FromQuery] AllGroupsQueryModel query)
@@ -61,7 +65,7 @@ namespace BeSocial.Web.Controllers
 
             TempData[UserMessageSuccess] = "Joined group successfully";
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(JoinedGroups));
         }
 
         public async Task<IActionResult> Leave(string groupId)
@@ -84,7 +88,7 @@ namespace BeSocial.Web.Controllers
 
             TempData[UserMessageSuccess] = "Left group successfully";
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(JoinedGroups));
         }
 
 
@@ -100,7 +104,8 @@ namespace BeSocial.Web.Controllers
 
             var userId = User.GetById();
 
-            if (!await groupService.HasUserWithIdAsync(groupId, userId))
+            if (!await groupService.HasUserWithIdAsync(groupId, userId)
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -120,7 +125,8 @@ namespace BeSocial.Web.Controllers
 
             var userId = User.GetById();
 
-            if (!await groupService.HasUserWithIdAsync(groupId, userId))
+            if (!await groupService.HasUserWithIdAsync(groupId, userId)
+                 && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -138,6 +144,8 @@ namespace BeSocial.Web.Controllers
             }
 
             await groupService.EditGroupAsync(model, groupId);
+
+            TempData[UserMessageSuccess] = "Successfully edited group!";
 
             return RedirectToAction(nameof(All));
         }
@@ -199,9 +207,146 @@ namespace BeSocial.Web.Controllers
         {
             string userId = User.GetById();
 
-            var likedPosts = await groupService.GetAllJoinedGroups(userId);
+            var likedPosts = await groupService.GetAllJoinedGroupsAsync(userId);
 
             return View(likedPosts);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (!await groupService.GroupExistAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var userId = User.GetById();
+
+            if (!await groupService.HasUserWithIdAsync(id, userId)
+                 && User.IsAdmin() == false)
+            {
+                return Unauthorized();
+            }
+
+            var group = await groupService.GetGroupDeleteModelByIdAsync(id);
+
+            return View(group);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(GroupDeleteViewModel model, string id)
+        {
+            if (!await groupService.GroupExistAsync(id))
+            {
+                return BadRequest();
+            }
+
+            var userId = User.GetById();
+
+            if (!await groupService.HasUserWithIdAsync(id, userId)
+                 && User.IsAdmin() == false)
+            {
+                return Unauthorized();
+            }
+
+            await groupService.DeleteGroupAsync(id);
+
+            TempData[UserMessageSuccess] = "Successfully deleted group!";
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Show(string groupId)
+        {
+            var userId = User.GetById();
+
+            if (!await groupService.IsUserInGroupAsync(groupId, userId) && User.IsAdmin() == false)
+            {
+                TempData[UserMessageError] = "You are not member of this group!";
+
+                return RedirectToAction(nameof(All));
+            }
+
+            if (!await groupService.GroupExistAsync(groupId))
+            {
+                return BadRequest();
+            }
+
+            var model = await groupService.GetAllPostsForGroupByGroupIdAsync(groupId);
+
+            var query = new GroupPostQueryModel()
+            {
+                GroupId = groupId,
+                Posts = model
+            };
+
+            return View(query);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> AddPostToGroup(string groupId)
+        {
+            if (!await groupService.GroupExistAsync(groupId))
+            {
+                return BadRequest();
+            }
+
+            var model = new PostFormServiceModel();
+
+            model.Categories = await postService.AllCategoriesAsync();
+
+            var group = await groupService.GetGroupFormModelByIdAsync(groupId);
+
+            model.GroupName = group.Name;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPostToGroup(PostFormServiceModel model, string groupId)
+        {
+            if (await groupService.CategoryExistAsync(model.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), CategoryDoesNotExist);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await postService.AllCategoriesAsync();
+
+                return View(model);
+            }
+
+            string userId = User.GetById();
+
+            await groupService.AddPostToGroupAsync(model, groupId, userId);
+
+            TempData[UserMessageSuccess] = $"Successfully added post to group!";
+
+            return RedirectToAction("Show", "Group", new { groupId = groupId });
+        }
+
+        [Authorize]
+        public async Task<IActionResult> My()
+        {
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("My", "Group", new { area = "Admin" } );
+            }
+
+            string userId = User.GetById();
+
+            if (!await premiumService.ExistByIdAsync(userId))
+            {
+                return Unauthorized();
+            }
+
+            var model = await groupService.GetAllMyGroupsAsync(userId);
+
+            return View(model);
         }
     }
 }
