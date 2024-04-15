@@ -23,7 +23,7 @@ namespace BeSocial.Services.Interfaces
 
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
 
-        Task<IEnumerable<PostAllViewModel>> GetAllPostsForGroupByIdAsync(string groupId);
+        //Task<IEnumerable<PostAllViewModel>> GetAllPostsForGroupByIdAsync(string groupId);
 
         Task<bool> IsUserInGroupAsync(string groupId, string userId);
 
@@ -49,6 +49,16 @@ namespace BeSocial.Services.Interfaces
 
         Task CreateGroupAsync(GroupFormModel model, string userId);
 
-        Task<IEnumerable<GroupAllViewModel>> GetAllJoinedGroups(string userId);
+        Task<IEnumerable<GroupAllViewModel>> GetAllJoinedGroupsAsync(string userId);
+
+        Task DeleteGroupAsync(string groupId);
+
+        Task<GroupDeleteViewModel> GetGroupDeleteModelByIdAsync(string groupId);
+
+        Task<IEnumerable<PostAllViewModel>> GetAllPostsForGroupByGroupIdAsync(string groupId);
+
+        Task AddPostToGroupAsync(PostFormServiceModel model, string groupId, string userId);
+
+        Task<IEnumerable<GroupAllViewModel>> GetAllMyGroupsAsync(string userId);
     }
 }

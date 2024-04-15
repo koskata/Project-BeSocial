@@ -14,6 +14,8 @@ using BeSocial.Web.ViewModels.Premium;
 
 using Microsoft.EntityFrameworkCore;
 
+using static BeSocial.Common.EntityValidationConstants;
+
 namespace BeSocial.Services.Group
 {
     public class GroupService : IGroupService
@@ -23,6 +25,23 @@ namespace BeSocial.Services.Group
         public GroupService(BeSocialDbContext _context)
         {
             context = _context;
+        }
+
+        public async Task AddPostToGroupAsync(PostFormServiceModel model, string groupId, string userId)
+        {
+            var post = new BeSocial.Data.Models.Post()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Likes = 0,
+                CreatedOn = DateTime.Now,
+                CreatorId = Guid.Parse(userId),
+                CategoryId = model.CategoryId,
+                GroupId = Guid.Parse(groupId)
+            };
+
+            await context.Posts.AddAsync(post);
+            await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<GroupCategoryServiceModel>> AllCategoriesAsync()
@@ -49,6 +68,28 @@ namespace BeSocial.Services.Group
             };
 
             await context.Groups.AddAsync(group);
+
+            var entry = new BeSocial.Data.Models.GroupParticipant()
+            {
+                GroupId = group.Id,
+                ParticipantId = Guid.Parse(userId)
+            };
+            await context.GroupParticipants.AddAsync(entry);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteGroupAsync(string groupId)
+        {
+            var group = await context.Groups.FirstOrDefaultAsync(x => x.Id.ToString() == groupId);
+
+            var entry = await context.GroupParticipants.Where(x => x.GroupId.ToString() == groupId).ToListAsync();
+
+            foreach (var item in entry)
+            {
+                context.GroupParticipants.Remove(item);
+            }
+
+            context.Groups.Remove(group);
             await context.SaveChangesAsync();
         }
 
@@ -105,7 +146,7 @@ namespace BeSocial.Services.Group
 
             foreach (var group in groups)
             {
-                var posts = await GetAllPostsForGroupByIdAsync(group.Id);
+                var posts = await GetAllPostsForGroupByGroupIdAsync(group.Id);
                 group.Posts = posts;
             }
 
@@ -118,7 +159,7 @@ namespace BeSocial.Services.Group
             };
         }
 
-        public async Task<IEnumerable<GroupAllViewModel>> GetAllJoinedGroups(string userId)
+        public async Task<IEnumerable<GroupAllViewModel>> GetAllJoinedGroupsAsync(string userId)
         {
             var groups = await context.GroupParticipants
                 .Where(x => x.ParticipantId.ToString() == userId)
@@ -134,8 +175,30 @@ namespace BeSocial.Services.Group
             return groups;
         }
 
-        public async Task<IEnumerable<PostAllViewModel>> GetAllPostsForGroupByIdAsync(string groupId)
+        public async Task<IEnumerable<GroupAllViewModel>> GetAllMyGroupsAsync(string userId)
         {
+            var user = await context.PremiumUsers
+                .Where(x => x.ApplicationUserId.ToString() == userId).FirstOrDefaultAsync();
+
+
+
+            var groups = await context.Groups
+                .Where(x => x.CreatorId == user.Id)
+                .Select(x => new GroupAllViewModel(
+                    x.Id.ToString(),
+                    x.Name,
+                    x.CreatorId,
+                    x.Category.Name,
+                    $"{x.Creator.FirstName} {x.Creator.LastName}",
+                    x.GroupParticipants.Where(y => y.GroupId == x.Id).Count()
+                )).ToListAsync();
+
+            return groups;
+        }
+
+        public async Task<IEnumerable<PostAllViewModel>> GetAllPostsForGroupByGroupIdAsync(string groupId)
+        {
+
             var posts = await context.Posts
                 .Where(x => x.GroupId.ToString() == groupId)
                 .Select(x => new PostAllViewModel(
@@ -146,9 +209,44 @@ namespace BeSocial.Services.Group
                     x.CreatedOn,
                     x.Category.Name,
                     $"{x.Creator.FirstName} {x.Creator.LastName}"
-                    )).ToListAsync();
+                    , x.Group.Name,
+                    x.GroupId.ToString(),
+                    x.CreatorId.ToString()))
+                .ToListAsync();
 
             return posts;
+        }
+
+        //public async Task<IEnumerable<PostAllViewModel>> GetAllPostsForGroupByIdAsync(string groupId)
+        //{
+        //    var posts = await context.Posts
+        //        .Where(x => x.GroupId.ToString() == groupId)
+        //        .Select(x => new PostAllViewModel(
+        //            x.Id.ToString(),
+        //            x.Title,
+        //            x.Description,
+        //            x.Likes,
+        //            x.CreatedOn,
+        //            x.Category.Name,
+        //            $"{x.Creator.FirstName} {x.Creator.LastName}"
+        //            )).ToListAsync();
+
+        //    return posts;
+        //}
+
+        public async Task<GroupDeleteViewModel> GetGroupDeleteModelByIdAsync(string groupId)
+        {
+            var group = await context.Groups
+                .Where(x => x.Id.ToString() == groupId)
+                .Select(x => new GroupDeleteViewModel()
+                {
+                    Id = x.Id.ToString(),
+                    Name = x.Name,
+                    Category = x.Category.Name,
+                    CreatorFullName = $"{x.Creator.FirstName} {x.Creator.LastName}"
+                }).FirstOrDefaultAsync();
+
+            return group;
         }
 
         public async Task<GroupFormModel> GetGroupFormModelByIdAsync(string groupId)
