@@ -36,12 +36,19 @@ namespace BeSocial.Services.Post
         {
             var post = await context.Posts.FirstOrDefaultAsync(x => x.Id.ToString() == postId);
 
-            var entry = await context.PostLikers.Where(x => x.PostId.ToString() == postId)
+            var entryPostLikers = await context.PostLikers.Where(x => x.PostId.ToString() == postId)
                 .ToListAsync();
 
-            foreach (var item in entry)
+            foreach (var item in entryPostLikers)
             {
                 context.PostLikers.Remove(item);
+            }
+
+            var entryPostComments = await context.Comments.Where(x => x.PostId.ToString() == postId).ToListAsync();
+
+            foreach (var comment in entryPostComments)
+            {
+                context.Comments.Remove(comment);
             }
 
             context.Posts.Remove(post);
@@ -119,8 +126,11 @@ namespace BeSocial.Services.Post
                     x.Likes,
                     x.CreatedOn,
                     x.Category.Name,
-                    $"{x.Creator.FirstName} {x.Creator.LastName}"
-                )).ToList();
+                    $"{x.Creator.FirstName} {x.Creator.LastName}",
+                    x.Group.Name,
+                    x.GroupId.ToString(),
+                    x.CreatorId.ToString()
+                    )).ToList();
 
             foreach (var post in posts)
             {
@@ -245,8 +255,9 @@ namespace BeSocial.Services.Post
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PostAllViewModel>> GetAllLikedPosts(string userId)
+        public async Task<IEnumerable<PostAllViewModel>> GetAllLikedPostsAsync(string userId)
         {
+
             var posts = await context.PostLikers
                 .Where(x => x.LikerId.ToString() == userId)
                 .Select(x => new PostAllViewModel(
@@ -256,7 +267,31 @@ namespace BeSocial.Services.Post
                     x.Post.Likes,
                     x.Post.CreatedOn,
                     x.Post.Category.Name,
-                    $"{x.Post.Creator.FirstName} {x.Post.Creator.LastName}"))
+                    $"{x.Post.Creator.FirstName} {x.Post.Creator.LastName}",
+                    x.Post.Group.Name,
+                    x.Post.GroupId.ToString(),
+                    x.Post.CreatorId.ToString()))
+                .ToListAsync();
+
+            return posts;
+        }
+
+        public async Task<IEnumerable<PostAllViewModel>> GetAllMyPostsAsync(string userId)
+        {
+            var posts = await context.Posts
+                .Where(x => x.CreatorId.ToString() == userId)
+                .Select(x => new PostAllViewModel(
+                    x.Id.ToString(),
+                    x.Title,
+                    x.Description,
+                    x.Likes,
+                    x.CreatedOn,
+                    x.Category.Name,
+                    $"{x.Creator.FirstName} {x.Creator.LastName}",
+                    x.Group.Name,
+                    x.GroupId.ToString(),
+                    x.CreatorId.ToString()
+                    ))
                 .ToListAsync();
 
             return posts;

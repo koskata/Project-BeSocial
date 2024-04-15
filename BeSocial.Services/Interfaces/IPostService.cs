@@ -46,6 +46,10 @@ namespace BeSocial.Services.Interfaces
 
         Task CreatePostAsync(PostFormServiceModel model, string userId);
 
-        Task<IEnumerable<PostAllViewModel>> GetAllLikedPosts(string userId);
+        Task<IEnumerable<PostAllViewModel>> GetAllLikedPostsAsync(string userId);
+
+        Task<IEnumerable<PostAllViewModel>> GetAllMyPostsAsync(string userId);
+
+
     }
 }
