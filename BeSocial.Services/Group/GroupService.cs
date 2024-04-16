@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BeSocial.Data;
+﻿using BeSocial.Data;
 using BeSocial.Data.Models;
 using BeSocial.Services.Interfaces;
 using BeSocial.Web.ViewModels.Enums;
@@ -13,8 +7,6 @@ using BeSocial.Web.ViewModels.Post;
 using BeSocial.Web.ViewModels.Premium;
 
 using Microsoft.EntityFrameworkCore;
-
-using static BeSocial.Common.EntityValidationConstants;
 
 namespace BeSocial.Services.Group
 {
@@ -217,23 +209,6 @@ namespace BeSocial.Services.Group
             return posts;
         }
 
-        //public async Task<IEnumerable<PostAllViewModel>> GetAllPostsForGroupByIdAsync(string groupId)
-        //{
-        //    var posts = await context.Posts
-        //        .Where(x => x.GroupId.ToString() == groupId)
-        //        .Select(x => new PostAllViewModel(
-        //            x.Id.ToString(),
-        //            x.Title,
-        //            x.Description,
-        //            x.Likes,
-        //            x.CreatedOn,
-        //            x.Category.Name,
-        //            $"{x.Creator.FirstName} {x.Creator.LastName}"
-        //            )).ToListAsync();
-
-        //    return posts;
-        //}
-
         public async Task<GroupDeleteViewModel> GetGroupDeleteModelByIdAsync(string groupId)
         {
             var group = await context.Groups
@@ -280,20 +255,6 @@ namespace BeSocial.Services.Group
 
             return model;
         }
-
-        //public async Task<PremiumUserAccountViewModel> GetPremiumUserByUserIdAsync(string userId)
-        //{
-        //    var model = await context.PremiumUsers
-        //        .Where(x => x.ApplicationUserId.ToString() == userId)
-        //        .Select(x => new PremiumUserAccountViewModel()
-        //        {
-        //            FirstName = x.FirstName,
-        //            LastName = x.LastName,
-        //            Description = x.Description
-        //        }).FirstOrDefaultAsync();
-
-        //    return model;
-        //}
 
         public async Task<bool> GroupExistAsync(string groupId)
             => await context.Groups.AnyAsync(x => x.Id.ToString() == groupId);

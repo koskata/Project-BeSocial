@@ -37,11 +37,9 @@ namespace BeSocial.Services.PremiumUser
         public async Task<bool> ExistByIdAsync(string userId)
             => await context.PremiumUsers.AnyAsync(x => x.ApplicationUserId.ToString() == userId);
 
-        public async Task<int> GetPremiumUserId(string userId)
+        public async Task<int> GetPremiumUserIdAsync(string userId)
             => (await context.PremiumUsers.FirstOrDefaultAsync(x => x.ApplicationUserId.ToString() == userId)).Id;
 
-        public async Task<bool> PremiumUserWithUserIdExistsAsync(string userId)
-            => await context.PremiumUsers.AnyAsync(x => x.ApplicationUserId.ToString() == userId);
 
 
     }
