@@ -44,6 +44,7 @@ namespace BeSocial.Web.Controllers
             return View(query);
         }
 
+        [Authorize]
         public async Task<IActionResult> Join(string groupId)
         {
             string userId = User.GetById();
@@ -68,6 +69,7 @@ namespace BeSocial.Web.Controllers
             return RedirectToAction(nameof(JoinedGroups));
         }
 
+        [Authorize]
         public async Task<IActionResult> Leave(string groupId)
         {
             string userId = User.GetById();
@@ -203,6 +205,7 @@ namespace BeSocial.Web.Controllers
         }
 
 
+        [Authorize]
         public async Task<IActionResult> JoinedGroups()
         {
             string userId = User.GetById();

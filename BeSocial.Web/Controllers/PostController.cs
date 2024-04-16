@@ -217,6 +217,7 @@ namespace BeSocial.Web.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> LikedPosts()
         {

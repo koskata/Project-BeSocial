@@ -29,7 +29,7 @@ namespace BeSocial.Web.Controllers
             string userId = User.GetById();
 
 
-            if (await premiumService.PremiumUserWithUserIdExistsAsync(userId))
+            if (await premiumService.ExistByIdAsync(userId))
             {
                 TempData[UserMessageSuccess] = "You are already a premium user!";
 
