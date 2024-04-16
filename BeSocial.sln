@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Web", "BeSocial.Web\BeSocial.Web.csproj", "{C41D446F-F498-4314-943E-1B2360D17B6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeSocial.Web", "BeSocial.Web\BeSocial.Web.csproj", "{C41D446F-F498-4314-943E-1B2360D17B6E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{66D00BFC-DA4F-40CC-97C6-79EAE6656672}"
 EndProject
@@ -13,17 +13,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9CABE9CD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{D0BB34EE-F9CF-4AA9-91CB-35DED5D37C2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Common", "BeSocial.Common\BeSocial.Common.csproj", "{B86D6AD5-9F95-433F-9411-131DCC25D21F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeSocial.Common", "BeSocial.Common\BeSocial.Common.csproj", "{B86D6AD5-9F95-433F-9411-131DCC25D21F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Services", "BeSocial.Services\BeSocial.Services.csproj", "{EB86D15C-FE31-4B7D-A9D0-DA84F97D45F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeSocial.Services", "BeSocial.Services\BeSocial.Services.csproj", "{EB86D15C-FE31-4B7D-A9D0-DA84F97D45F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Data", "BeSocial.Data\BeSocial.Data.csproj", "{E1F283B5-EF80-49B8-AE28-BF99321FC57C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeSocial.Data", "BeSocial.Data\BeSocial.Data.csproj", "{E1F283B5-EF80-49B8-AE28-BF99321FC57C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Data.Models", "BeSocial.Data.Models\BeSocial.Data.Models.csproj", "{0C08C482-CA7C-44FE-92F4-43BB5E8E7501}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeSocial.Data.Models", "BeSocial.Data.Models\BeSocial.Data.Models.csproj", "{0C08C482-CA7C-44FE-92F4-43BB5E8E7501}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Web.Infrastructure", "BeSocial.Web.Infrastructure\BeSocial.Web.Infrastructure.csproj", "{81BE048D-D479-4168-B9E6-C48599C9795F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeSocial.Web.Infrastructure", "BeSocial.Web.Infrastructure\BeSocial.Web.Infrastructure.csproj", "{81BE048D-D479-4168-B9E6-C48599C9795F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Web.ViewModels", "BeSocial.Web.ViewModels\BeSocial.Web.ViewModels.csproj", "{5B1A1930-60AE-4537-B4E6-42AFF0D5E2CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeSocial.Web.ViewModels", "BeSocial.Web.ViewModels\BeSocial.Web.ViewModels.csproj", "{5B1A1930-60AE-4537-B4E6-42AFF0D5E2CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeSocial.Tests", "BeSocial.Tests\BeSocial.Tests.csproj", "{AB8B17A6-42E2-4248-8CEB-F5AC94F94008}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{5B1A1930-60AE-4537-B4E6-42AFF0D5E2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B1A1930-60AE-4537-B4E6-42AFF0D5E2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B1A1930-60AE-4537-B4E6-42AFF0D5E2CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB8B17A6-42E2-4248-8CEB-F5AC94F94008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB8B17A6-42E2-4248-8CEB-F5AC94F94008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB8B17A6-42E2-4248-8CEB-F5AC94F94008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB8B17A6-42E2-4248-8CEB-F5AC94F94008}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{0C08C482-CA7C-44FE-92F4-43BB5E8E7501} = {66D00BFC-DA4F-40CC-97C6-79EAE6656672}
 		{81BE048D-D479-4168-B9E6-C48599C9795F} = {D0BB34EE-F9CF-4AA9-91CB-35DED5D37C2E}
 		{5B1A1930-60AE-4537-B4E6-42AFF0D5E2CB} = {D0BB34EE-F9CF-4AA9-91CB-35DED5D37C2E}
+		{AB8B17A6-42E2-4248-8CEB-F5AC94F94008} = {9CABE9CD-69D1-4E9C-B6DB-2F703BF30981}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97C86667-DB0F-46FA-BAA8-15F71392A6A3}
