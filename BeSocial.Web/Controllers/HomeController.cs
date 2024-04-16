@@ -38,6 +38,11 @@ namespace BeSocial.Web.Controllers
                 return View("Error401");
             }
 
+            if (statusCode == 404)
+            {
+                return View("Error404");
+            }
+
             return View();
         }
     }

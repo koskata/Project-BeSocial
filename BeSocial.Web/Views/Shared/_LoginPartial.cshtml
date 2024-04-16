@@ -9,11 +9,11 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            @if (await userService.UserFullName(User.GetById()) is var fullName && fullName != null && await premiumService.PremiumUserWithUserIdExistsAsync(User.GetById()))
+            @if (await userService.UserFullName(User.GetById()) is var fullName && fullName != null && await premiumService.ExistByIdAsync(User.GetById()))
             {
                 <a class="nav-link text-white">Hello, <i class="premiumText">@fullName!</i></a>
             }
-            else if (await userService.UserFullName(User.GetById()) is var fullName2 && fullName != null && await premiumService.PremiumUserWithUserIdExistsAsync(User.GetById()) == false)
+            else if (await userService.UserFullName(User.GetById()) is var fullName2 && fullName != null && await premiumService.ExistByIdAsync(User.GetById()) == false)
             {
                 <a class="nav-link text-white">Hello, <i>@fullName2</i>!</a>
             }
