@@ -22,13 +22,6 @@ namespace BeSocial.Data.Configuration
         {
             List<Group> groups = new List<Group>()
             {
-                //new Group()
-                //{
-                //    Id = Guid.Parse("dedd5df2-ae16-4c81-8989-ab4b04a2c7da"),
-                //    Name = "The best jokes ever",
-                //    OrganiserId = Guid.Parse("42409a8e-62ad-41ce-82be-533c18943886"),
-                //    CategoryId = 1
-                //},
                 new Group()
                 {
                     Id = Guid.Parse("e4d30dd1-31f7-4a05-9f45-9b40f8bad5eb"),

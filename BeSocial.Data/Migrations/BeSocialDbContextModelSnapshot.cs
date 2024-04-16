@@ -104,7 +104,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("b744c1d2-71a0-42a9-af63-836846a0fa40"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f42aa369-93e5-4c41-b18b-a04044a19f47",
+                            ConcurrencyStamp = "a584dda1-9f08-45dc-872c-a029c7e41016",
                             Email = "georgiivanov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Georgi",
@@ -112,9 +112,9 @@ namespace BeSocial.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GEORGIIVANOV@GMAIL.COM",
                             NormalizedUserName = "GEORGIIVANOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB5Vj3hATTyk22ZtePboBAeZPxvtfjOH+f47SgqKcsE/qbx7LLDKPlHzABfSL/7Cew==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKOs3aSlhJm7H9XJQM1AQZdvFiEi07HNlE7ZjarhOByiOt3VskuHV2a601aZxuLWIg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7396619b-29ab-4437-afe6-5ee77c689fce",
+                            SecurityStamp = "f8ee2c19-8d3d-4702-9151-7b4fafc42e0d",
                             TwoFactorEnabled = false,
                             UserName = "georgiivanov@gmail.com"
                         },
@@ -122,7 +122,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("656592c0-e20c-4a11-900a-eb6c9cd94b20"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aeb43441-f9d2-4cda-9c90-04a5be23dcde",
+                            ConcurrencyStamp = "79ee72a3-591d-4d47-ad21-f52fcef61787",
                             Email = "dimitarpavlov@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Dimitar",
@@ -130,9 +130,9 @@ namespace BeSocial.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DIMITARPAVLOV@GMAIL.COM",
                             NormalizedUserName = "DIMITARPAVLOV@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEALbVmTIxD1lLlj7gJVTaZOekg+BP4Hq4uPvRfmBL+d4dCYLLsdpEwNNklOgXw6y6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM6gKCaFFqf/lZ/boIeU9srkEmBIvkWKBnhya8zZjNWNDNNw7ZMupFn3Mg4cyTnutg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "18a5b388-e03e-41d1-90b6-1b521619b8cd",
+                            SecurityStamp = "eec078a7-56ee-44b3-8d93-dc54befa1ebf",
                             TwoFactorEnabled = false,
                             UserName = "dimitarpavlov@gmail.com"
                         },
@@ -140,7 +140,7 @@ namespace BeSocial.Data.Migrations
                         {
                             Id = new Guid("42409a8e-62ad-41ce-82be-533c18943886"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48fa53b5-94f9-42a6-9a87-47e666ce9801",
+                            ConcurrencyStamp = "4944a82e-6045-4a65-a395-af2cd01ff603",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -148,9 +148,9 @@ namespace BeSocial.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPyo8dHD0DWkHtFx4CHG6gkB9G3F182cpfDfqlqMqT2aZcoKeXqkKcOyxxUbDajj6Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBt0f52C/4JoiifNwBkqnhww5LnGprfmHbpaPXCs4wFAlv4PASz1p9Z8XzApH4Q4yw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6575808a-678a-4535-b66b-c641257e3535",
+                            SecurityStamp = "848c8f05-6777-4b9a-ad2c-4e340b04c580",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });

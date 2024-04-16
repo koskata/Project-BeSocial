@@ -9,9 +9,15 @@ namespace BeSocial.Data
 {
     public class BeSocialDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public BeSocialDbContext(DbContextOptions<BeSocialDbContext> options)
+        private readonly bool seedDb;
+        public BeSocialDbContext(DbContextOptions<BeSocialDbContext> options, bool seedDb = true)
             : base(options)
         {
+            if (!Database.IsRelational())
+            {
+                Database.EnsureCreated();
+            }
+            this.seedDb = seedDb;
         }
 
 
@@ -50,12 +56,16 @@ namespace BeSocial.Data
                 .HasForeignKey(x => x.PostId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
-            builder.ApplyConfiguration(new CategoryEntityConfiguration());
-            builder.ApplyConfiguration(new GroupEntityConfiguration());
-            builder.ApplyConfiguration(new PostEntityConfiguration());
-            builder.ApplyConfiguration(new PremiumUserEntityConfiguration());
-            builder.ApplyConfiguration(new GroupParticipantEntityConfiguration());
+            if (seedDb)
+            {
+                builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+                builder.ApplyConfiguration(new CategoryEntityConfiguration());
+                builder.ApplyConfiguration(new GroupEntityConfiguration());
+                builder.ApplyConfiguration(new PostEntityConfiguration());
+                builder.ApplyConfiguration(new PremiumUserEntityConfiguration());
+                builder.ApplyConfiguration(new GroupParticipantEntityConfiguration());
+            }
+            
 
             base.OnModelCreating(builder);
         }
