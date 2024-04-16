@@ -6,11 +6,6 @@
 
 <head>
     <style>
-        /* Add the updated CSS styles here */
-        .backg {
-            /* background-color: dimgray; */
-            /* background-image: url(); */
-        }
 
         .premiumText {
             color: darkorange;
@@ -79,18 +74,22 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <div class="btn-group">
-                                <button class="nav-link btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">My</button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Post" asp-action="My">My Posts</a></li>
-                                    @if (await premiumService.ExistByIdAsync(User.GetById()))
-                                    {
-                                        <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Group" asp-action="My">My Groups</a></li>
-                                    }
-                                </ul>
-                            </div>
-                        </li>
+                        @if (User?.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <button class="nav-link btn text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">My</button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Post" asp-action="My">My Posts</a></li>
+                                        @if (await premiumService.ExistByIdAsync(User.GetById()))
+                                        {
+                                            <li><a class="nav-link text-black dropdown-item" asp-area="" asp-controller="Group" asp-action="My">My Groups</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+
                     </ul>
 
                     <a class="me-5 text-white text-decoration-none premiumButton" asp-area="" asp-controller="Premium" asp-action="Become">Become a <span class="premiumTextSpan"><i class="premiumText fw-bold">PREMIUM</i></span></a>
@@ -105,22 +104,24 @@
         </nav>
     </header>
 
-    @if (ViewData["Title"] == "Home Page")
-    {
-        <div class="container">
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-    }
-    else
-    {
-        <div class="container w-75">
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-    }
+    <section class="mainContent mb-5">
+        @if (ViewData["Title"] == "Home Page")
+        {
+            <div class="container">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+        }
+        else
+        {
+            <div class="container w-75">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+        }
+    </section>
 
 
 

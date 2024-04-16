@@ -13,8 +13,13 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+footer {
+    /*padding: 1em;*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: $zindex-fixed;
 }
 
 /* CUSTOMIZE THE CAROUSEL

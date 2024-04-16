@@ -80,22 +80,25 @@
         </nav>
     </header>
 
-    @if (ViewData["Title"] == "Home Page")
-    {
-        <div class="container">
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-    }
-    else
-    {
-        <div class="container w-75">
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-    }
+
+    <section class="mainContent mb-5">
+        @if (ViewData["Title"] == "Home Page")
+        {
+            <div class="container">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+        }
+        else
+        {
+            <div class="container w-75">
+                <main role="main">
+                    @RenderBody()
+                </main>
+            </div>
+        }
+    </section>
 
 
     <footer class="border-top footer bg-dark">
