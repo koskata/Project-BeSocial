@@ -5,20 +5,12 @@
 
 }
 
-<style>
-    .backDel {
-        background-color: #DADADA;
-        padding: 2em;
-        border-radius: 0.3em;
-    }
-</style>
-
 <h2 class="text-center mt-3">@ViewBag.Title</h2>
 <hr />
 
 <form asp-controller="Group" asp-action="Delete">
     <div class="row">
-        <div class="col-md-12 backDel">
+        <div class="col-md-12 backDel shadow-lg">
             <div class="form-group mb-3">
                 <label asp-for="Name" class="control-label">Group Name</label>
                 <input asp-for="Name" class="form-control text-center" disabled readonly />

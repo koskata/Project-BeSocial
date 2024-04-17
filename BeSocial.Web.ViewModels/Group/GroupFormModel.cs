@@ -22,6 +22,7 @@ namespace BeSocial.Web.ViewModels.Group
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = LengthErrorMessage)]
         public string Name { get; set; } = string.Empty;
 
+        [Display(Name = "Category")]
         [Required(ErrorMessage = RequiredMessage)]
         public int CategoryId { get; set; }
 

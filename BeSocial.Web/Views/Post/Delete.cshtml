@@ -4,20 +4,12 @@
     ViewBag.Title = "Delete Post";
 }
 
-<style>
-    .backDel {
-        background-color: #DADADA;
-        padding: 2em;
-        border-radius: 0.3em;
-    }
-</style>
-
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <form asp-controller="Post" asp-action="Delete">
     <div class="row">
-        <div class="col-md-12 backDel">
+        <div class="col-md-12 backDel shadow-lg">
             <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" disabled readonly />

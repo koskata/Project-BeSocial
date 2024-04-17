@@ -25,17 +25,194 @@ footer {
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
-/* Carousel base class */
+
 .carousel {
     margin-bottom: 4rem;
 }
-/* Since positioning the image, we need to help out the caption */
+
 .carousel-caption {
     bottom: 3rem;
     z-index: 10;
 }
 
-/* Declare heights because of positioning of img element */
 .carousel-item {
     height: 33rem;
+}
+
+/* Group Views
+-------------------------------------------------- */
+
+.person {
+    max-width: 15%;
+    border: 1px solid black;
+    border-radius: 2em;
+}
+
+.sport {
+    color: #009F4F;
+}
+
+.fun {
+    color: #FF8256;
+}
+
+.life {
+    color: #4DAABC;
+}
+
+.music {
+    color: #B41EB2;
+}
+
+.com {
+    background-color: #DADADA;
+    border-radius: 0.3em;
+}
+
+.creatorGroup {
+    font-size: 1.2em;
+}
+
+.participants {
+    background-color: #DADADA;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-right: 1em;
+    padding-left: 1em;
+    border-radius: 0.3em;
+    border: 1px solid black;
+}
+
+.accountButton {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    border-radius: 1em;
+    border: 1px solid black;
+}
+
+    .accountButton:hover {
+        background-color: #ffe299;
+    }
+
+body {
+    background-image: url('https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-71061.jpg?t=st=1711055759~exp=1711056359~hmac=5c6901fa900b6bffff8fc16990f350d18d3c6a0d686580524869d101f23e91c0');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.likes {
+    background-color: #AEF1FF;
+    border-radius: 0.3em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+}
+
+.date {
+    background-color: #D0D0D0;
+    border-radius: 0.3em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+.searchButton {
+    background-color: #D0D0D0;
+}
+
+.allGroups {
+    background-color: #c9f4ff;
+}
+
+.info {
+    background-color: #99ddff;
+    border-radius: 0.4em;
+}
+
+.backDel {
+    background-color: #DADADA;
+    padding: 2em;
+    border-radius: 0.3em;
+}
+
+.backEdit {
+    background-color: #DADADA;
+    padding: 2em;
+    border-radius: 0.3em;
+}
+
+/* Home Views
+-------------------------------------------------- */
+
+.coroselImg {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    filter: brightness(50%);
+}
+
+.colored {
+    background-color: #71616E;
+    border: 2px solid #71616E;
+}
+
+/* Post Views
+-------------------------------------------------- */
+
+.likes {
+    border: 2px solid black;
+    background-color: #AEF1FF;
+    border-radius: 0.3em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+}
+
+.groupName {
+    background-color: #ffe299;
+    border-radius: 2em;
+    padding-right: 1em;
+    padding-left: 1em;
+    border: 1px solid black;
+}
+
+.allPosts {
+    background-color: #c9ffd8;
+}
+
+.descrPost {
+    font-size: 1.3em;
+}
+
+/* Layout
+-------------------------------------------------- */
+
+.premiumText {
+    color: darkorange;
+}
+
+.premiumTextSpan {
+    font-size: 1.3em;
+}
+
+.premiumButton {
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border-radius: 1em;
+}
+
+    .premiumButton:hover {
+        background-color: #3f4040;
+        padding-right: 0.8em;
+        padding-left: 0.8em;
+    }
+
+.descrComment {
+    font-size: 1.2em;
 }

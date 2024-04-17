@@ -4,39 +4,48 @@
     ViewBag.Title = "All Users";
 }
 
-<h2 class="text-center mt-3">@ViewBag.Title</h2>
-<hr />
+<!DOCTYPE html>
+<html>
+<head>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th><label>Full Name</label></th>
-            <th><label>User Status</label></th>
-            <th><label></label></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
+    <title></title>
+</head>
+<body>
+    <h2 class="text-center mt-3">@ViewBag.Title</h2>
+    <hr />
+    <table class="table table-striped bg-white">
+        <thead>
             <tr>
-                <td><label>@user.FullName</label></td>
-                <td>
-                    @if (user.IsPremium)
-                    {
-                        <label><span class="premiumTextSpan"><i class="premiumText fw-bold">PREMIUM</i></span></label>
-                    }
-                    else
-                    {
-                        <label class="text-center">❌</label>
-                    }
-                </td>
-                <td>
-                    @if (user.IsPremium)
-                    {
-                        <a asp-area="" asp-controller="Group" asp-action="Account" asp-route-creatorId="@user.Id" class="btn btn-warning">More Info</a>
-                    }
-                </td>
+                <th><label>Full Name</label></th>
+                <th><label>User Status</label></th>
+                <th><label></label></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td><label>@user.FullName</label></td>
+                    <td>
+                        @if (user.IsPremium)
+                        {
+                            <label><span class="premiumTextSpan"><i class="premiumText fw-bold">PREMIUM</i></span></label>
+                        }
+                        else
+                        {
+                            <label class="text-center">❌</label>
+                        }
+                    </td>
+                    <td>
+                        @if (user.IsPremium)
+                        {
+                            <a asp-area="" asp-controller="Group" asp-action="Account" asp-route-creatorId="@user.Id" class="btn btn-warning">More Info</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+
