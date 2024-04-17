@@ -1,13 +1,7 @@
-﻿using System.Diagnostics;
-
-using BeSocial.Data;
-using BeSocial.Services.Interfaces;
-using BeSocial.Web.Infrastructure;
-using BeSocial.Web.ViewModels.Post;
+﻿using BeSocial.Web.Infrastructure;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BeSocial.Web.Controllers
 {

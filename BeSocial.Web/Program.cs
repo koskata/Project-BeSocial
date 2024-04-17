@@ -1,11 +1,6 @@
-using BeSocial.Data;
 using BeSocial.Services.Interfaces;
-using BeSocial.Services;
-
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using BeSocial.Data.Models;
 using BeSocial.Web.Infrastructure;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeSocial.Web

@@ -1,5 +1,4 @@
 ﻿using BeSocial.Services.Interfaces;
-using BeSocial.Services.Post;
 
 using Microsoft.AspNetCore.Mvc;
 

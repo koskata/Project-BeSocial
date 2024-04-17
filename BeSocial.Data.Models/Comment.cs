@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Microsoft.EntityFrameworkCore;
+
 using static BeSocial.Common.EntityValidationConstants.Comment;
 
 namespace BeSocial.Data.Models

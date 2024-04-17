@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BeSocial.Web.ViewModels.Enums;
+﻿using BeSocial.Web.ViewModels.Enums;
 using BeSocial.Web.ViewModels.Group;
 using BeSocial.Web.ViewModels.Post;
 using BeSocial.Web.ViewModels.Premium;

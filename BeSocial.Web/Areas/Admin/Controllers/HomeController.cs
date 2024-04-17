@@ -1,5 +1,4 @@
-﻿using BeSocial.Web.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BeSocial.Web.Areas.Admin.Controllers
 {

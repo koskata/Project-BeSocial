@@ -173,7 +173,7 @@ namespace BeSocial.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -232,7 +232,7 @@ namespace BeSocial.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("BeSocial.Data.Models.Group", b =>
@@ -262,7 +262,7 @@ namespace BeSocial.Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
 
                     b.HasData(
                         new
@@ -288,7 +288,7 @@ namespace BeSocial.Data.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("GroupParticipants");
+                    b.ToTable("GroupParticipants", (string)null);
 
                     b.HasData(
                         new
@@ -345,7 +345,7 @@ namespace BeSocial.Data.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
 
                     b.HasData(
                         new
@@ -394,7 +394,7 @@ namespace BeSocial.Data.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostLikers");
+                    b.ToTable("PostLikers", (string)null);
                 });
 
             modelBuilder.Entity("BeSocial.Data.Models.PremiumUser", b =>
@@ -432,7 +432,7 @@ namespace BeSocial.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("PremiumUsers");
+                    b.ToTable("PremiumUsers", (string)null);
 
                     b.HasData(
                         new

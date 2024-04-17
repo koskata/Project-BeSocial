@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BeSocial.Services.Group;
+﻿using BeSocial.Services.Group;
 using BeSocial.Services.Interfaces;
-using BeSocial.Services.Post;
 using BeSocial.Tests.UnitTests;
 using BeSocial.Web.ViewModels.Enums;
 using BeSocial.Web.ViewModels.Group;

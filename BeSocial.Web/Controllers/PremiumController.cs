@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using static BeSocial.Common.ErrorMessages;
 using static BeSocial.Common.MessageConstants;
 
 namespace BeSocial.Web.Controllers

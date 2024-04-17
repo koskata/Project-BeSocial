@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using static BeSocial.Common.EntityValidationConstants.Category;
+﻿using System.ComponentModel.DataAnnotations;
 
 using Microsoft.EntityFrameworkCore;
+
+using static BeSocial.Common.EntityValidationConstants.Category;
 
 namespace BeSocial.Data.Models
 {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace BeSocial.Data.Models

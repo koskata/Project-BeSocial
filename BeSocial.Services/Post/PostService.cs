@@ -1,14 +1,10 @@
 ﻿using BeSocial.Data;
+using BeSocial.Data.Models;
 using BeSocial.Services.Interfaces;
 using BeSocial.Web.ViewModels.Enums;
 using BeSocial.Web.ViewModels.Post;
 
 using Microsoft.EntityFrameworkCore;
-
-using static BeSocial.Web.Infrastructure.ClaimsPrincipalExtension;
-using static BeSocial.Common.EntityValidationConstants.Post;
-using System.Linq;
-using BeSocial.Data.Models;
 
 namespace BeSocial.Services.Post
 {
