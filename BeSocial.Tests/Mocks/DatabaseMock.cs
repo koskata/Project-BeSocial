@@ -20,7 +20,7 @@ namespace BeSocial.Tests.Mocks
                     .UseInMemoryDatabase("BeSocialInMemoryDb"
                         + Guid.NewGuid().ToString()).Options;
 
-                return new BeSocialDbContext(dbContextOptions);
+                return new BeSocialDbContext(dbContextOptions, false);
             }
         }
     }
